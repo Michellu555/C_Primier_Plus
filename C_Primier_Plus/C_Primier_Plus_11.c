@@ -52,7 +52,7 @@ int main()
     //    "Following instruction to the letter",
     //    "Understanding the C language"
     //};
-    ////用指针定义字符串数组
+    ////用指针定义字符串数组, 即指针的数组。
 
     //char yourtalents[LIM][SLEN] =
     //{
@@ -60,7 +60,7 @@ int main()
     //    "Sleeping", "Watching television",
     //    "Mailing leters", "Reading email"
     //};
-    ////定义字符串数组，每个字符串最大长度为39个字符
+    ////用数组定义字符串数组，即数组的数组。
 
     //int i;
     //puts("Let's compare talents."); //直接输出字符串
@@ -72,6 +72,15 @@ int main()
     //printf("\nsizeof mytalents: %zd, sizeof yourtalents: %zd\n", sizeof(mytalents), sizeof(yourtalents));
 
 
+
+    //程序清单11.5
+    //指针和字符串
+    const char* mesg = "Don't be a fool!";
+    const char* copy;
+    copy = mesg;
+    printf("%s\n", copy);
+    printf("mesg = %s; %mesg = %p; value = %p\n", mesg, &mesg, mesg);
+    printf("copy = %s; &copy = %p; value = %p\n", copy, &copy, copy);
     
   
 
