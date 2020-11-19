@@ -75,12 +75,12 @@ int main()
 
     //程序清单11.5
     //指针和字符串
-    const char* mesg = "Don't be a fool!";
-    const char* copy;
-    copy = mesg;
-    printf("%s\n", copy);
-    printf("mesg = %s; %mesg = %p; value = %p\n", mesg, &mesg, mesg);
-    printf("copy = %s; &copy = %p; value = %p\n", copy, &copy, copy);
+    // const char* mesg = "Don't be a fool!";
+    // const char* copy;
+    // copy = mesg;
+    // printf("%s\n", copy);
+    // printf("mesg = %s; &mesg = %p; value = %p\n", mesg, &mesg, mesg); //指针mesg与指针copy的地址不同，但是他们都指向同一个字符串，所以他们指向的地址相同，即他们的
+    // printf("copy = %s; &copy = %p; value = %p\n", copy, &copy, copy);
     
   
 
