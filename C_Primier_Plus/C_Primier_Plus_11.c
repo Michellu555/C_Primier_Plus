@@ -8,6 +8,7 @@
 #define MSG "I’am special"
 #define SLEN 40
 #define LIM 5
+#define STLEN 10
 
 
 
@@ -82,7 +83,55 @@ int main()
     // printf("mesg = %s; &mesg = %p; value = %p\n", mesg, &mesg, mesg); //指针mesg与指针copy的地址不同，但是他们都指向同一个字符串，所以他们指向的地址相同，即他们的
     // printf("copy = %s; &copy = %p; value = %p\n", copy, &copy, copy);
     
+
+
+    //程序清单11.6
+    //使用gets()和puts()
+    //char words[STLEN]; //定义了一个空字符串
+    //puts("Enter a string, please.");
+    //gets(words); //输入到字符串worlds中
+    //printf("Your string twice:\n");
+    //printf("%s\n", words); //用printf输出字符
+    //puts(words); //用puts再次输出字符
+    //puts("Done."); //输出指定字符
+
   
+
+    //程序清单11.7
+    //char words[STLEN]; //初始化一个空字符串
+    //puts("Enter a string, please."); //输出指定字符串
+    //fgets(words, STLEN, stdin); //读入字符
+    ////第一个参数是读入字符的位置
+    ////第二个参数是读入的最大字符数量
+    ////第三个参数是指明读入的文件，stdin表示从键盘读入
+    //printf("Your string twice (puts(), then fputs()):\n");
+    //puts(words); //puts()输出时会添加换行符
+    //fputs(words, stdout); //fputs()输出时不会添加换行符
+    ////第一个参数是输出的字符
+    ////第二个参数是指明要输出的文件，stdout表示标准显示到显示器上
+    //puts("Enter another string, please."); //输出指定字符
+    //fgets(words, STLEN, stdin); //读入字符
+    //printf("Your string twice(puts(), then fputs()):\n");
+    //puts(words); //输出字符
+    //fputs(words, stdout);
+    //puts("Done.");
+
+
+
+    //程序清单11.8
+    char words[STLEN];
+    puts("Enter strings (empty line to quit):");
+    //fgets（）读到末位时会读到空指针
+    /*while (fgets(words, STLEN, stdin) != NULL && words[0] != '\n')
+    {
+        fputs(words, stdout);
+    }*/
+    while (fgets(words, STLEN, stdin) != NULL)
+    {
+        fputs(words, stdout);
+    }
+    puts("Done.");
+
 
 
 
