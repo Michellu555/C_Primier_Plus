@@ -119,19 +119,46 @@ int main()
 
 
     //程序清单11.8
-    char words[STLEN];
-    puts("Enter strings (empty line to quit):");
-    //fgets（）读到末位时会读到空指针
-    /*while (fgets(words, STLEN, stdin) != NULL && words[0] != '\n')
-    {
-        fputs(words, stdout);
-    }*/
-    while (fgets(words, STLEN, stdin) != NULL)
-    {
-        fputs(words, stdout);
-    }
-    puts("Done.");
+    // char words[STLEN];
+    // puts("Enter strings (empty line to quit):");
+    // //fgets（）读到文章结束时会返回空指针
+    // while (fgets(words, STLEN, stdin) != NULL && words[0] != '\n')
+    // {
+    //     fputs(words, stdout);
+    // }
+    // puts("Done.");
 
+
+
+    //程序清单11.9
+    // int i;
+    // char words[STLEN];
+    // puts("Enter strings (enpty line to quit):");
+    // while (fgets(words, STLEN, stdin) != NULL && words[0] != '\n') //读取输入
+    // {
+    //     //验证输入
+    //     i = 0;
+    //     while (words[i] != '\n' && words[i] != '\0') //跳过非空字符和非换行符
+    //     {
+    //         i++;
+    //     }
+    //     //删除换行符
+    //     if (words[i] == '\n')
+    //     {
+    //         words[i] = '\0';
+    //     }
+    //     else
+    //     {
+    //         while (getchar() != '\n') //剔除所有非换行符内容
+    //         {
+    //             continue;
+    //         }
+    //     }
+    //     puts(words);
+    // }
+    // puts("Done");
+    
+    
 
 
 
