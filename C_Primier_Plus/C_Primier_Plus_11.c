@@ -9,6 +9,15 @@
 #define SLEN 40
 #define LIM 5
 #define STLEN 10
+#define DEF "I am a #defined string."
+
+
+
+//函数原型
+void put1(const char*); //打印字符串，不添加\n
+int put2(const char*); //打印一个字符串，并统计打印字符数
+void fit(char*, unsigned int); //缩短字符串的长度
+
 
 
 
@@ -161,7 +170,55 @@ int main()
     
 
 
+    //程序清单11.11
+    //char name1[11], name2[11];
+    //int count;
+    //printf("Please enter 2 names.\n");
+    //count = scanf("%5s %10s", name1, name2); 
+    ////scanf返回读取的项数或者EOF
+    ////%5s表示只读5个字符或者读到空白为止，当name1超过5个字符，剩下的被存在缓存区，等到%10s的时候读取
+    //printf("I read the %d names %s and %s.\n", count, name1, name2);
 
+
+
+    //程序清单11.12
+    //puts在输出时会在末尾添加换行符，遇到空字符时就停止输出
+    //char str1[80] = "An array was initialized to me.";
+    //const char* str2 = "A pointer was initialized to me."; //用指针定义了一个字符串
+    //puts("I'm an argument to puts()."); //直接打印字符
+    //puts(DEF); //打印提前定义好的字符
+    //puts(str1); //通过字符串名打印字符
+    //puts(str2); //通过指针名打印字符
+    //puts(&str1[5]); //从第6个字符处开始打印字符串
+    //puts(str2 + 4); //从字符串开始处往后移动4个单位处开始打印字符串
+
+    
+
+    //程序清单11.13
+    //char side_a[] = "Side A";
+    //char dont[] = { 'W', 'O', 'W', '!' };
+    //char side_b[] = "Side B";
+    //puts(dont); //dong不是字符串，因为缺少空字符
+
+
+    
+    //程序清单11.16
+    //put_put.c -- 用户自定义输出函数
+    //put1("If I'd as much money");
+    //put1(" as I could spend,\n");
+    ////put2的返回值作为printf中的参数，先打印put2中的字符串
+    //printf("I count %d characters.\n", put2("I never would cry old chairs to mend.")); 
+
+    
+
+    //程序清单11.17
+    //test_fit.c -- 使用缩短字符串长度的函数
+    //char mesg[] = "Things should be as simple as possible,"  "but not simpler";
+    //puts(mesg); //打印字符
+    //fit(mesg, 38); //隔断mesg字符串
+    //puts(mesg); //隔断后再打印一次
+    //puts("Let's look at some more of the string.");
+    //puts(mesg + 39); //mesg往后移动39个字符串后再打印
 
     
 
@@ -169,3 +226,40 @@ int main()
     return 0;
 }
 
+
+
+
+
+//函数声明
+void put1(const char* string) //打印字符串，不添加\n
+{
+    while (*string != '\0') //等价与string[0] != '\0', 每个字符串都会以空字符结尾
+    {
+        putchar(*string++); 
+    }
+}
+
+
+
+int put2(const char* string) //打印一个字符串，并统计打印的字符数
+{
+    int count;
+    count = 0;
+    while(*string) //*string表示不是空字符是为真，是空字符时为假
+    {
+        putchar(*string++);
+        count++;
+    }
+    putchar('\n'); //换行符不计数
+    return count;
+}
+
+
+
+void fit(char* string, unsigned int size) //缩短字符串的长度
+{
+    if (strlen(string) > size) //当字符串string的长度大于size时，将string隔断，但是string[size]后的字符仍然存在，未丢弃。
+    {
+        string[size] = '\0';
+    }
+}
