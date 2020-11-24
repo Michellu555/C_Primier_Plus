@@ -10,10 +10,12 @@
 #define LIM 5
 #define STLEN 10
 #define DEF "I am a #defined string."
+#define SIZE 80
 
 
 
 //函数原型
+char* s_gets(char*, int);
 void put1(const char*); //打印字符串，不添加\n
 int put2(const char*); //打印一个字符串，并统计打印字符数
 void fit(char*, unsigned int); //缩短字符串的长度
@@ -220,6 +222,49 @@ int main()
     //puts("Let's look at some more of the string.");
     //puts(mesg + 39); //mesg往后移动39个字符串后再打印
 
+
+
+
+    //程序清单11.18
+    //str_cat.c -- 拼接两个字符串
+    char flower[SIZE];
+    char addon[] = "s smell like old shoes."; //初始化字符串并赋值
+    puts("What is your favorite flower?"); //直接打印字符串
+    if (s_gets(flower, SIZE)) //如果正常返回一个字符串
+    {
+        strcat(flower, addon); //将第二个字符串的副本链接到第一个字符串上
+        puts(flower);
+        puts(addon);
+    }
+    else
+    {
+        puts("End of file encuntered!");
+        puts("bye");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     
 
 
@@ -231,6 +276,34 @@ int main()
 
 
 //函数声明
+char* s_gets(char* st, int n) //读入的数组位置和最大字符数量
+{
+    char* ret_val;
+    int i = 0;
+    ret_val = fgets(st, n, stdin);  //读取正常时，fgets返回的指针与st一致，这里把fgets的指针赋给了ret_val
+    if (ret_val) //即ret_val != NULL
+    {
+        while (st[i] != '\n' && st[i] != '\0') //不断读取st[i]， 直到读取到空字符和零字符
+        {
+            i++;
+        }
+        if (st[i] == '\n')
+        {
+            st[i] = '\0';
+        }
+        else
+        {
+            while (getchar() != '\n')
+            {
+                continue;
+            }
+        }
+    }
+    return ret_val;
+}
+
+
+
 void put1(const char* string) //打印字符串，不添加\n
 {
     while (*string != '\0') //等价与string[0] != '\0', 每个字符串都会以空字符结尾
