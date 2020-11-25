@@ -10,7 +10,9 @@
 #define LIM 5
 #define STLEN 10
 #define DEF "I am a #defined string."
-#define SIZE 80
+#define SIZE 40
+#define BUGSIZE 13
+#define ANSWER "Grant"
 
 
 
@@ -227,22 +229,91 @@ int main()
 
     //程序清单11.18
     //str_cat.c -- 拼接两个字符串
-    char flower[SIZE];
-    char addon[] = "s smell like old shoes."; //初始化字符串并赋值
-    puts("What is your favorite flower?"); //直接打印字符串
-    if (s_gets(flower, SIZE)) //如果正常返回一个字符串
-    {
-        strcat(flower, addon); //将第二个字符串的副本链接到第一个字符串上
-        puts(flower);
-        puts(addon);
-    }
-    else
-    {
-        puts("End of file encuntered!");
-        puts("bye");
-    }
+    //char flower[SIZE];
+    //char addon[] = "s smell like old shoes."; //初始化字符串并赋值
+    //puts("What is your favorite flower?"); //直接打印字符串
+    //if (s_gets(flower, SIZE)) //如果读取正常返回一个字符串
+    //{
+    //    strcat(flower, addon); //将第二个字符串的副本链接到第一个字符串上
+    //    puts(flower);
+    //    puts(addon);
+    //}
+    //else
+    //{
+    //    puts("End of file encuntered!");
+    //    puts("bye");
+    //}
 
 
+
+
+    //程序清单11.19
+    //join_chk.c -- 拼接两个字符串，检查第一个数组的大小
+    //char flower[SIZE];
+    //char addon[] = "s smell like old shoes.";
+    //char bug[BUGSIZE];
+    //int available;
+    //puts("What is your favorite flower?");
+    ////在flower中输入字符 → 判断剩余空间是否大于addon长度 → 如果大于则可合并
+    //s_gets(flower, SIZE); //输入字符
+    //if (strlen(flower) + strlen(addon) + 1 <= SIZE) //判断剩余长度能否容纳addon
+    //{
+    //    strcat(flower, addon); //合并字符
+    //    puts(flower);
+    //}
+    ////将字符合并到bug中 → 输入字符到bug中 → 计算可用字符长度 → 使用strncat连接字符
+    //s_gets(bug, BUGSIZE); //输入字符到bug中
+    //available = BUGSIZE - strlen(bug) - 1; //计算可用字符长度，必须留一个给空字符
+    //strncat(bug, addon, available); //合并available个字符到bug中
+    //puts(bug);
+
+
+    
+    //程序清单11.20
+    //nogo.c -- 该正序是否能正常运行？
+    //char try[SIZE];
+    //puts("Who is buried in Grant's tomb?");
+    //s_gets(try, SIZE); 
+    //while (try != ANSWER) //try和ANSWER都是指针，这两个指针的地址不可能相同
+    //{
+    //    puts("Wrong, try again.");
+    //    s_gets(try, SIZE);
+    //}
+    //puts("That's right!");
+
+
+    
+
+    //程序清单11.21
+    //compare.c -- 该程序可用正常运行
+    //char try[SIZE];
+    //puts("Who is buride in Grant's tomb?");
+    //s_gets(try, SIZE);
+    ////strcmp函数用于比较两个字符串，如果两个字符串一致，就返回0，不一致就返回非零值
+    //while (strcmp(try, ANSWER) != 0) 
+    //{
+    //    puts("Wrong, try again.");
+    //    s_gets(try, SIZE);
+    //}
+    //puts("That's right!");
+
+
+    
+    
+    //程序清单11.22
+    //compback.c -- strcmp()的返回值
+    //printf("strcmp(\"A\", \"A\") is ");  
+    //printf("%d\n", strcmp("A", "A")); //返回值是0
+    //printf("strcmp(\"A\", \"B\") is ");
+    //printf("%d\n", strcmp("A", "B"));
+    //printf("strcmp(\"B\", \"A\") is ");
+    //printf("%d\n", strcmp("B", "A"));
+    //printf("strcmp(\"C\", \"A\") is ");
+    //printf("%d\n", strcmp("C", "A"));
+    //printf("strcmp(\"Z\", \"a\") is ");
+    //printf("%d\n", strcmp("Z", "a"));
+    //printf("strcmp(\"apples\", \"apple\") is ");
+    //printf("%d\n", strcmp("apples", "apple"));
 
 
 
