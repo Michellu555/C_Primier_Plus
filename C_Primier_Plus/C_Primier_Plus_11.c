@@ -7,13 +7,18 @@
 #define MAXLENGTH 81
 #define MSG "I’am special"
 #define SLEN 40
-#define LIM 10
+#define LIM 5
 #define STLEN 10
 #define DEF "I am a #defined string."
 #define SIZE 80
 #define BUGSIZE 13
 #define ANSWER "Grant"
 #define STOP "quit"
+#define LISTSIZE 6
+#define WORDS "beast"
+#define TARGSIZE 7
+#define MAX 20
+
 
 
 
@@ -320,33 +325,144 @@ int main()
 
     //程序清单11.23
     //quit_chk.c -- 某程序的开始部分
-    char input[LIM][SIZE]; //字符串数组
-    int ct = 0;
-    printf("Enter up tp %d lines(type quit to quit):\n", LIM);
-    //使用while判断输入的字符串 → 输入字符串
-    //while判断 → LIM数组数量是否超上限 + s_gets是否正确输入 + 比较字符串是否等于quit
-    while (ct < LIM && s_gets(input[ct], SIZE) != NULL && strcmp(STOP, input[ct]) != 0)
-    {
-        ct++;
-    }
-    printf("%d strings entered.\n", ct);
+    // char input[LIM][SIZE]; //字符串数组
+    // int ct = 0;
+    // printf("Enter up tp %d lines(type quit to quit):\n", LIM);
+    // //使用while判断输入的字符串 → 输入字符串
+    // //while判断 → LIM数组数量是否超上限 + s_gets是否正确输入 + 比较字符串是否等于quit
+    // while (ct < LIM && s_gets(input[ct], SIZE) != NULL && strcmp(STOP, input[ct]) != 0)
+    // {
+    //     ct++;
+    // }
+    // printf("%d strings entered.\n", ct);
+    //注：检测LIM数组数量是否超上限 + s_gets是否正确输入 + 是否输入空格
+    // while (ct < LIM && s_gets(input[ct], SIZE)) != NULL && input[ct][0] != '\0') //因为换行符会被s_gets函数替换成空字符，所以直接检测空字符即可
+    
+    
+
+
+
+    //程序清单11.24
+    //strsrch.c -- 使用strncmp()
+    //查找字符串数组中的字符串前5个字符是否和指定字符串一致
+    //使用strncmp进行判断
+    // const char *list[LISTSIZE] = 
+    // {
+    //     "astronomy", "astounding",
+    //     "astrophysics", "ostracize",
+    //     "asterism", "astrophobia"
+    // };
+    // int count = 0;
+    // for (int i = 0; i < LISTSIZE; i++)
+    // {
+    //     if (strncmp(list[i], "astro", 5) == 0) //调出前5个字符与astro一致的字符串
+    //     {
+    //         printf("Found: %s\n", list[i]); //打印出来
+    //         count++; 
+    //     }
+        
+    // }
+    // printf("The list contained %d words beginning with astro.\n", count);
+
+
+
+
+    //程序清单11.25
+    //copy1.c -- 演示strcpy()
+    //strcpy函数用于copy字符串
+    //要求循环输入以q开头的字符串 → 判断是否是以q开头的字符串 → 如果是就录入并且计数加一， 如果不是就跳过 → 将录入的字符串循环打印出来
+    //可以使用一个字符串数组用来存放字符串，不需要临时存放的数组，当开头不为q的时候就计数不加一，一直读到了q开头的字符才加一
+    // char qwords[LIM][SIZE]; //用于存放开头为q的字符
+    // char temp[SIZE]; //用于临时存放字符
+    // int count = 0;
+    // printf("Enter %d words beginning with q:\n", LIM);
+    // while (count < LIM && s_gets(temp, SIZE)) //循环录入字符串
+    // {
+    //     if (temp[0] == 'q') //判断第一个字符是否是q
+    //     {
+    //         strcpy(qwords[count], temp);
+    //         count++;
+    //     }
+    //     else
+    //     {
+    //         printf("%s doesn't begin with q!\n", temp);
+    //     }
+    // }
+    // puts("Here are the words accepted:");
+    // for (int i = 0; i < LIM; i++)
+    // {
+    //     puts(qwords[i]);
+    // }
 
 
 
 
 
 
+    //程序清单11.26
+    //copy2.c -- 使用strcpy()
+    //在字符串复制到另一字符串的指定位置，并非开头位置
+    // const char *orig = WORDS; //初始化字符串并赋值
+    // char copy[SIZE] = "be the best that you can be.";
+    // char *ps;
+    // puts(orig); //复制前的字符串
+    // puts(copy);
+    // strcpy(copy + 7, orig); //将字符串复制到指定位置
+    // puts(orig); //复制后的字符串
+    // puts(copy); //orig字符串中的空字符串也是字符，也会被复制过来
+    
+    
+
+    //程序清单11.27
+    //copy3.c -- 使用strncpy()
+    // char qwords[LIM][TARGSIZE]; //用于存放开头为q的字符
+    // char temp[SIZE]; //用于临时存放字符
+    // int count = 0;
+    // printf("Enter %d words beginning with q:\n", LIM);
+    // while (count < LIM && s_gets(temp, SIZE)) //循环录入字符串
+    // {
+    //     if (temp[0] == 'q') //判断第一个字符是否是q
+    //     {
+    //         strncpy(qwords[count], temp, TARGSIZE - 1); //第三个参数为存入目标字符串的最大字符数
+    //         qwords[count][TARGSIZE - 1] = '\0'; //将最后一个字符赋值为空字符，这样才能组成字符串
+    //         count++;
+    //     }
+    //     else
+    //     {
+    //         printf("%s doesn't begin with q!\n", temp);
+    //     }
+    // }
+    // puts("Here are the words accepted:");
+    // for (int i = 0; i < LIM; i++)
+    // {
+    //     puts(qwords[i]);
+    // }
 
 
 
 
 
+    //程序清单11.28
+    //format.c -- 格式化字符串
+    // char first[MAX];
+    // char last[MAX];
+    // char formal[2 * MAX + 10];
+    // double prize;
+    // puts("Enter your first name.");
+    // s_gets(first, MAX);
+    // puts("Enter your last name:");
+    // s_gets(last, MAX);
+    // puts("Enter your prize money:");
+    // scanf("%lf", &prize);
+    // sprintf(formal, "%s, %-19s: $%6.2f\n", last, first, prize); //%-19s表示左对齐，占19个字符位置
+    // puts(formal);
+
+    
 
 
 
-
-
-
+   
+    
 
 
 
