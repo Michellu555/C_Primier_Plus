@@ -7,12 +7,13 @@
 #define MAXLENGTH 81
 #define MSG "I’am special"
 #define SLEN 40
-#define LIM 5
+#define LIM 10
 #define STLEN 10
 #define DEF "I am a #defined string."
-#define SIZE 40
+#define SIZE 80
 #define BUGSIZE 13
 #define ANSWER "Grant"
+#define STOP "quit"
 
 
 
@@ -314,6 +315,21 @@ int main()
     //printf("%d\n", strcmp("Z", "a"));
     //printf("strcmp(\"apples\", \"apple\") is ");
     //printf("%d\n", strcmp("apples", "apple"));
+
+
+
+    //程序清单11.23
+    //quit_chk.c -- 某程序的开始部分
+    char input[LIM][SIZE]; //字符串数组
+    int ct = 0;
+    printf("Enter up tp %d lines(type quit to quit):\n", LIM);
+    //使用while判断输入的字符串 → 输入字符串
+    //while判断 → LIM数组数量是否超上限 + s_gets是否正确输入 + 比较字符串是否等于quit
+    while (ct < LIM && s_gets(input[ct], SIZE) != NULL && strcmp(STOP, input[ct]) != 0)
+    {
+        ct++;
+    }
+    printf("%d strings entered.\n", ct);
 
 
 
