@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<ctype.h>
 
 
 
@@ -19,6 +20,9 @@
 #define TARGSIZE 7
 #define MAX 20
 
+#define LIMIT 81
+
+
 
 
 
@@ -27,6 +31,8 @@ char* s_gets(char*, int);
 void put1(const char*); //打印字符串，不添加\n
 int put2(const char*); //打印一个字符串，并统计打印字符数
 void fit(char*, unsigned int); //缩短字符串的长度
+void ToUpper(char *); //把字符串中每个字符转换成大写
+int PunctCount(const char*); //统计字符串中标点符号的个数
 
 
 
@@ -461,7 +467,27 @@ int main()
 
 
 
-   
+    //程序清单11.30
+    //mod_str.c -- 修改字符串
+    //输入字符 → 用strchr函数查找换行符并替换成零字符 → 把字符串转换成全大写字母 → 打印字符串 → 打印共有多少个标点
+    char line[LIMIT];
+    char *find;
+    puts("Please enter a line");
+    fgets(line, LIMIT, stdin);
+    //查找换行符并替换成零字符
+    find = strchr(line, '\n');
+    if (find)
+    {
+        *find = '\0';
+    }
+    //转换成大写字母
+    ToUpper(line);
+    //打印字符串
+    puts(line);
+    //打印共有多少个标点
+    printf("That line has %d punctuation characters.\n", PunctCount(line));
+
+    
     
 
 
@@ -538,4 +564,32 @@ void fit(char* string, unsigned int size) //缩短字符串的长度
     {
         string[size] = '\0';
     }
+}
+
+
+
+
+
+void ToUpper(char * test) //把字符串中每个字符转换成大写
+{
+    while (*test) //判断是否为零字符串
+    {
+        *test = toupper(*test);
+        test++;
+    }
+}
+
+
+int PunctCount(const char* test) //统计字符串中标点符号的个数
+{
+    int count = 0;
+    while (*test)
+    {
+        if (ispunct(*test))
+        {
+            count++;
+        }
+        test++;
+    }
+    return count;
 }
