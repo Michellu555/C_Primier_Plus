@@ -19,7 +19,7 @@
 #define WORDS "beast"
 #define TARGSIZE 7
 #define MAX 20
-
+#define HALT ""
 #define LIMIT 81
 
 
@@ -31,13 +31,15 @@ char* s_gets(char*, int);
 void put1(const char*); //打印字符串，不添加\n
 int put2(const char*); //打印一个字符串，并统计打印字符数
 void fit(char*, unsigned int); //缩短字符串的长度
+void stsrt(char* strings[], int num); //字符串排序函数
 void ToUpper(char *); //把字符串中每个字符转换成大写
 int PunctCount(const char*); //统计字符串中标点符号的个数
 
 
 
 
-int main()
+//int main()
+int main(int argc, char *argv[])
 {
     // ********************************************************************************************************************************************
     // 程序清单11.1
@@ -403,8 +405,6 @@ int main()
 
 
 
-
-
     //程序清单11.26
     //copy2.c -- 使用strcpy()
     //在字符串复制到另一字符串的指定位置，并非开头位置
@@ -466,34 +466,70 @@ int main()
     
 
 
+    //程序清单11.29
+    //sort_str.c -- 读入字符串， 并排序字符串
+    //读取字符串 → 排序字符串 → 打印字符串
+    //char input[LIM][SIZE]; //存储输入的数组
+    //char* ptstr[LIM]; //内含指针变量的数组
+    //int ct = 0; //输入计数
+    //int k; //输出计数
+    //printf("Input up to %d lines, and I will sort them.\n", LIM);
+    //printf("To stop, press the Enter key at a line's start.\n");
+    ////读取字符串
+    //while (ct < LIM && s_gets(input[ct], SIZE) && input[ct][0] != '\0') //换行符会被s_gets替换成零字符，所以要判断是否为零字符
+    //{
+    //    //将指针数组指向输入的数组
+    //    ptstr[ct] = input[ct]; //将input[ct]这个字符串的首地址赋给指针ptstr[ct]
+    //    ct++;
+    //}
+    ////字符串排序
+    //stsrt(ptstr, ct);
+    //puts("Here's the sorted list:\n");
+    ////打印字符串
+    //for (k = 0; k < ct; k++)
+    //{
+    //    puts(ptstr[k]);
+    //}
+
+
+
+
 
     //程序清单11.30
     //mod_str.c -- 修改字符串
     //输入字符 → 用strchr函数查找换行符并替换成零字符 → 把字符串转换成全大写字母 → 打印字符串 → 打印共有多少个标点
-    char line[LIMIT];
-    char *find;
-    puts("Please enter a line");
-    fgets(line, LIMIT, stdin);
-    //查找换行符并替换成零字符
-    find = strchr(line, '\n');
-    if (find)
+    //char line[LIMIT];
+    //char *find;
+    //puts("Please enter a line");
+    //fgets(line, LIMIT, stdin);
+    ////查找换行符并替换成零字符
+    //find = strchr(line, '\n');
+    //if (find)
+    //{
+    //    *find = '\0';
+    //}
+    ////转换成大写字母
+    //ToUpper(line);
+    ////打印字符串
+    //puts(line);
+    ////打印共有多少个标点
+    //printf("That line has %d punctuation characters.\n", PunctCount(line));
+
+    
+    
+
+    //程序清单11.31
+    //repeat.c -- 带参数的main（）
+    int count;
+    printf("The command line has %d arguments:\n", argc - 1);
+    for (count = 0; count < argc; count++)
     {
-        *find = '\0';
+        printf("%d: %s\n", count, argv[count]);
     }
-    //转换成大写字母
-    ToUpper(line);
-    //打印字符串
-    puts(line);
-    //打印共有多少个标点
-    printf("That line has %d punctuation characters.\n", PunctCount(line));
+    printf("\n");
 
     
-    
-
-
-
-    
-
+  
     
 
 
@@ -565,6 +601,29 @@ void fit(char* string, unsigned int size) //缩短字符串的长度
         string[size] = '\0';
     }
 }
+
+
+
+
+
+
+void stsrt(char* strings[], int num) //字符串排序函数
+{
+    char* temp;
+    for (int top = 0; top < num - 1; top++)
+    {
+        for (int seek = top + 1; seek < num; seek++)
+        {
+            if (strcmp(strings[top], strings[seek]) > 0) //如果前一个字符串排在后一个之前, 就返回一个负值
+            {
+                temp = strings[top];
+                strings[top] = strings[seek];
+                strings[seek] = temp;
+            }
+        }
+    }
+}
+
 
 
 
