@@ -520,6 +520,7 @@ int main(int argc, char *argv[])
 
     //程序清单11.31
     //repeat.c -- 带参数的main（）
+    /*
     int count;
     printf("The command line has %d arguments:\n", argc - 1);
     for (count = 0; count < argc; count++)
@@ -527,8 +528,18 @@ int main(int argc, char *argv[])
         printf("%d: %s\n", count, argv[count]);
     }
     printf("\n");
+    */
 
-    
+    char * ptr;
+    char list1[20] = "Hello";
+    char list2[6] = "lol";
+    //strcpy(list1 + 4, list2);
+    //strncat(list1, list2, 3);
+    //puts(list1);
+    ptr = strpbrk(list1, list2);
+    puts(ptr);
+
+
   
     
 
