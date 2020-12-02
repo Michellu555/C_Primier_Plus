@@ -7,6 +7,9 @@
 
 
 char* pr(char* str);
+char* s_gets(char*, int);
+int string_length(char*);
+char* find_space(char*);
 
 
 int main()
@@ -95,28 +98,56 @@ int main()
 
 
 	//8.下面的程序会打印出什么？
-	char str1[] = "gawsie";
-	char str2[] = "bletonism";
-	char* ps;
-	int i = 0;
-	for (ps = str1; *ps != '\0'; ps++) //读取str1字符串
-	{
-		if (*ps == 'a' || *ps == 'e') //如果字符是a或e, 那就打印出来
-		{
-			putchar(*ps);
-		}
-		else
-		{
-			(*ps)--; //如果不是，将该字符替换成前一个字符
-			putchar(*ps);
-		}
-	}
-	putchar('\n');
-	while (str2[i] != '\0')
-	{
-		printf("%c", i % 3 ? str2[i] : '*'); //判断1是否能被3整除，能就返回str2[i], *le*on*sm*
-		++i;
-	}
+	//char str1[] = "gawsie";
+	//char str2[] = "bletonism";
+	//char* ps;
+	//int i = 0;
+	//for (ps = str1; *ps != '\0'; ps++) //读取str1字符串
+	//{
+	//	if (*ps == 'a' || *ps == 'e') //如果字符是a或e, 那就打印出来
+	//	{
+	//		putchar(*ps);
+	//	}
+	//	else
+	//	{
+	//		(*ps)--; //如果不是，将该字符替换成前一个字符
+	//		putchar(*ps);
+	//	}
+	//}
+	//putchar('\n');
+	//while (str2[i] != '\0')
+	//{
+	//	printf("%c", i % 3 ? str2[i] : '*'); //判断1是否能被3整除，能就返回str2[i], *le*on*sm*
+	//	++i;
+	//}
+
+
+	//9.本章定义的s_gets()函数，用指针表示法代替可数组表示法便可用减少一个变量i。请改写该函数。
+	//见函数定义部分
+
+
+	//10.strlen()函数接受一个指向字符串的指针作为参数，并返回该字符串的长度。请编写一个这样的函数。
+	//见函数定义部分
+
+	
+	//11.本章定义的s_gets()函数，可用用strchr()函数代替其中的while循环来查找换行符。 请改写该函数。
+	//见函数定义部分
+
+
+	//12.设计一个函数，接受一个指向字符串的指针，返回指向该字符串第一个空格字符的指针，或如果未查找到空格字符，则返回空指针。
+	//见函数定义部分
+
+
+	//13.重写程序清单11.21， 使用ctype.h头文件中函数，以便无论用户选手大写还是小写，该程序都能正确识别答案。
+	
+
+
+
+
+
+
+
+
 	
 
 	
@@ -140,4 +171,66 @@ char* pr(char* str)
 	} while (pc - str);
 
 	return(pc);
+}
+
+
+char* s_gets(char* st, int n)
+{
+	char* rev_val;
+	rev_val = fgets(st, n, stdin);
+	//方案2使用
+	char* find;
+	if (rev_val) //确保rev_val读到了数据
+	{
+		//方案1
+		while (*rev_val != '\0' && *rev_val != '\n')
+		{
+			rev_val++;
+		}
+		if (*rev_val == '\n')
+		{
+			*rev_val = '\0';
+		}
+		else
+		{
+			while (getchar() != '\n')
+			{
+				continue;
+			}
+		}
+		//方案2
+		/*find = strchr(rev_val, '\n');
+		if (find)
+		{
+			*find = '\0';
+		}
+		else
+		{
+			while (getchar() != '\n')
+			{
+				continue;
+			}
+		}*/
+	}
+	return rev_val;
+}
+
+
+int string_length(char* st)
+{
+	int count = 0;
+	while (*st++) //st的值不为空字符
+	{
+		count++;
+	}
+
+	return count;
+}
+
+
+char* find_space(char* st)
+{
+	char* find;
+	find = strchr(st, ' ');
+	return find;
 }
