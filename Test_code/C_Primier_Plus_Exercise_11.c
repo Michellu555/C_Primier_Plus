@@ -139,7 +139,8 @@ int main()
 
 
 	//13.重写程序清单11.21， 使用ctype.h头文件中函数，以便无论用户选手大写还是小写，该程序都能正确识别答案。
-	
+	char* st;
+	puts(s_gets(st, 8));
 
 
 
@@ -193,7 +194,7 @@ char* s_gets(char* st, int n)
 		}
 		else
 		{
-			while (getchar() != '\n')
+			while ((getchar()) != '\n')
 			{
 				continue;
 			}
