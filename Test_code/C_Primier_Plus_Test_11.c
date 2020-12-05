@@ -2,7 +2,7 @@
 #include<ctype.h>
 
 
-#define LEN 15
+#define LEN 30
 
 
 
@@ -15,6 +15,8 @@ void mystrncpy(char*, char*, int); //½«ºóÒ»¸ö×Ö·û´®ÖĞÖ¸¶¨×Ö·û¸´ÖÆµ½Ç°Ò»¸ö×Ö·û´®Ö
 char* string_in(char*, char*); //²éÕÒÇ°Ò»¸ö×Ö·û´®ÖĞÊÇ·ñ°üº¬ºóÒ»¸ö×Ö·û´®
 void inverte(char*); //½«×Ö·û´®·´Ğò
 void delet_space(char*); //É¾³ı×Ö·û´®ÖĞµÄ¿Õ¸ñ·û
+void get_choice(char*[], char); //»ñÈ¡Ñ¡Ôñ²¢Ö´ĞĞ
+int count_firstword(char*); //»ñÈ¡µÚÒ»¸öµ¥´ÊµÄ³¤¶È
 
 int main()
 {
@@ -170,7 +172,79 @@ int main()
     }
     */
    
+    
 
+    //11.±àĞ´Ò»¸öº¯Êı£¬¶ÁÈë10¸ö×Ö·û´®»òÕß¶Áµ½EOFÊ±Í£Ö¹¡£¸Ã³ÌĞòÎªÓÃ»§Ìá¹©Ò»¸öÓĞ5¸öÑ¡ÏîµÄ²Ëµ¥£º
+    //´òÓ¡Ô´×Ö·û´®ÁĞ±í¡¢ÒÔASCIIÖĞµÄË³Ğò´òÓ¡×Ö·û´®¡¢°´³¤¶ÈµİÔöË³Ğò´òÓ¡×Ö·û´®¡¢°´×Ö·û´®ÖĞµÚ1¸öµ¥´ÊµÄ³¤¶È´òÓ¡×Ö·û´®¡¢ÍË³ö¡£
+    //²Ëµ¥¿ÉÒÔÑ­»·ÏÔÊ¾£¬³ı·ÇÓÃ»§Ñ¡ÔñÍË³öÑ¡Ïî¡£µ±È»£¬¸Ã³ÌĞòÒªÄÜÕæÕıÍê³É²Ëµ¥ÖĞ¸÷Ñ¡ÏîµÄ¹¦ÄÜ¡£
+    //char st[10][LEN];
+    //char* ptr[10];
+    //char ch;
+    //puts("Please enter ten strings: ");
+    //for (int i = 0; i < 10; i++) //¶ÁÈë×Ö·û´®
+    //{
+    //    fgets(st[i], LEN, stdin);
+    //    ptr[i] = st[i]; //°ÑÖ¸ÕëÖ¸Ïò¸Ã×Ö·û´®
+    //}
+    //puts("The menu is as below :");
+    //puts("a: to output the strings.");
+    //puts("b: to output the string with the order of ASCII.");
+    //puts("c: to output the string whit the order of the string length.");
+    //puts("d: to output the string with the order of the first word length.");
+    //puts("q: to quit the program.");
+    //puts("Please enter your choice: ");
+    //while ((ch = getchar()) != 'q') 
+    //{
+    //    printf("You have choose %c\n", ch);
+    //    get_choice(ptr, ch);
+    //    while (getchar() != '\n')
+    //    {
+    //        continue;
+    //    }
+    //    //Êä³ö×Ö·û´®
+    //    puts("Please enter your choice: ");
+    //}
+    //puts("Bye!");
+
+
+    //12.±àĞ´Ò»¸ö³ÌĞò£¬¶ÁÈ¡ÊäÈë£¬Ö±ÖÁ¶Áµ½EOF, ±¨¸æ¶ÁÈëµÄµ¥´ÊÊı¡¢´óĞ´×ÖÄ¸Êı¡¢Ğ¡Ğ´×ÖÄ¸Êı¡¢±êµã·ûºÅÊıºÍÊı×Ö×Ö·ûÊı¡£Ê¹ÓÃctype.hÍ·ÎÄ¼şÖĞµÄº¯Êı¡£
+    //char st[LEN];
+    //puts("Please enter a string: ");
+    //fgets(st, LEN, stdin);
+    //int count = strlen(st);
+    //int count_words = 0;
+    //int count_big_alp = 0;
+    //int count_small_alp = 0;
+    //int count_punct = 0;
+    //int count_dig = 0;
+    //for (int i = 0; i < count - 1; i++)
+    //{
+    //    if (st[i] == ' ') //ÅĞ¶Ïµ¥´ÊÊıÄ¿
+    //    {
+    //        count_words++;
+    //    }
+    //    if (isupper(st[i])) //´óĞ´×ÖÄ¸¼ÆÊı
+    //    {
+    //        count_big_alp++;
+    //    }
+    //    if (islower(st[i])) //Ğ¡Ğ´×ÖÄ¸¼ÆÊı
+    //    {
+    //        count_small_alp++;
+    //    }
+    //    if (ispunct(st[i])) //±êµã¼ÆÊı
+    //    {
+    //        count_punct++;
+    //    }
+    //    if (isdigit(st[i])) //Êı×Ö¼ÆÊı
+    //    {
+    //        count_dig++;
+    //    }
+    //}
+    //printf("There are %d words, %d upper alphas, %d small alphas, %d punchs and %d digits.",
+    //    count_words + 1, count_big_alp, count_small_alp, count_punct, count_dig);
+
+
+    
   
 
     
@@ -345,4 +419,91 @@ void delet_space(char* st) //É¾³ı×Ö·û´®ÖĞµÄ¿Õ¸ñ·û
             len = strlen(st) - 1; //È¥µôÁË¿Õ¸ñ·û£¬½«len³¤¶È¼õ1
         }
     }
+}
+
+
+
+void get_choice(char* st[], char ch) //»ñÈ¡Ñ¡Ôñ²¢Ö´ĞĞ
+{
+    char* temp;
+    int count_st1, count_st2;
+    switch (ch)
+    {
+    case 'a': //´òÓ¡Ô´×Ö·û´®
+        for (int i = 0; i < 10; i++)
+        {
+            fputs(st[i], stdout);
+        }
+        break;
+    case 'b': //ÒÔASCIIË³Ğò´òÓ¡×Ö·û´®
+        for (int j = 0; j < 9; j++)
+        {
+            for (int m = j + 1; m < 10; m++)
+            {
+                if (strcmp(st[j], st[m]) > 0) //´ÓĞ¡µ½´óÅÅÁĞ
+                {
+                    temp = st[m]; //»»Î»ÖÃ
+                    st[m] = st[j];
+                    st[j] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            fputs(st[i], stdout);
+        }
+        break;
+    case 'c': //°´³¤¶ÈµİÔöË³Ğò´òÓ¡×Ö·û´®
+        for (int m = 0; m < 9; m++)
+        {
+            for (int n = m + 1; n < 10; n++)
+            {
+                if (strlen(st[m]) > strlen(st[n])) //´Ó¶Ìµ½³¤ÅÅ
+                {
+                    temp = st[n];
+                    st[n] = st[m];
+                    st[m] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            fputs(st[i], stdout);
+        }
+        break;
+    case 'd': //°´×Ö·û´®ÖĞµÚ1¸öµ¥´ÊµÄ³¤¶È´òÓ¡×Ö·û´®
+        for (int m = 0; m < 9; m++)
+        {
+            for (int n = m + 1; n < 10; n++)
+            {
+                count_st1 = count_firstword(st[m]); //»ñÈ¡µÚÒ»¸öµ¥´ÊµÄ³¤¶È
+                count_st2 = count_firstword(st[n]);
+                if (count_st1 > count_st2) //´Ó¶Ìµ½³¤ÅÅ
+                {
+                    temp = st[m];
+                    st[m] = st[n];
+                    st[n] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            fputs(st[i], stdout);
+        }
+        break;
+    default:
+        puts("Illegal input, please enter 'a', 'b', 'c', 'd' or 'q'");
+        break;
+    }
+}
+
+
+int count_firstword(char* st) //»ñÈ¡µÚÒ»¸öµ¥´ÊµÄ³¤¶È
+{
+    int count = 0;
+    while (isalpha(*st++)) //ÅĞ¶ÏÊÇ·ñµ½ÁËµ¥´Ê½áÎ²
+    {
+        count++;
+    }
+    return count;
 }
