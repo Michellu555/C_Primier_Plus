@@ -4,6 +4,15 @@
 
 
 void trystat(void); 
+void critic(void);
+void report_count();
+void accumulate(int k);
+
+
+
+int nuits = 0; //定义外部变量
+int count = 0; //文件作用域，外部链接
+
 
 
 
@@ -57,6 +66,38 @@ int main()
 
 
 
+	//程序清单12.4
+	//global.c -- 使用外部变量
+	//extern int nuits; //可选的重复声明
+	//printf("How many pounds to a firkin of butter?\n");
+	//scanf("%d", &nuits);
+	//while (nuits != 56) //使用了外部变量
+	//{
+	//	critic();
+	//}
+	//printf("You must hvae looked it up!\n");
+
+
+
+	//程序清单12.5
+	//parta.c -- 不同的存储类别
+	//与partb.c一起编译
+	int value; //自动变量
+	register int i; //寄存器变量
+	printf("Enter a positive integer(0 to quit):");
+	while (fscanf("%d", &value) == 1 && value > 0)
+	{
+		++count; //使用文件作用域变量
+		for (i = value; i >= 0; i++)
+		{
+			accumulate(i);
+		}
+		printf("Enter a positive integer(0 to quit): ");
+	}
+	report_count();
+
+
+
 
 
 
@@ -71,4 +112,19 @@ void trystat(void)
 	int fade = 1; //块作用域，自动变量
 	static int stay = 1; //块作用域，静态变量
 	printf("fade = %d and stay = %d\n", fade++, stay++); //fade的值一直是1，stay的值是1，2，3
+}
+
+
+
+void critic(void)
+{
+	//删除了可选的重复声明
+	printf("No luck, my fried. Try again.\n");
+	scanf("%d", &nuits);
+}
+
+
+void report_count()
+{
+	printf("Loop executed %d times\n", count);
 }
