@@ -19,6 +19,7 @@ extern int rand1(void);
 
 
 
+
 int nuits = 0; //定义外部变量
 int count = 0; //文件作用域，外部链接
 
@@ -91,19 +92,19 @@ int main()
 	//程序清单12.5
 	//parta.c -- 不同的存储类别
 	//与partb.c一起编译
-	// int value; //自动变量
-	// register int i; //寄存器变量
-	// printf("Enter a positive integer(0 to quit):");
-	// while (fscanf("%d", &value) == 1 && value > 0)
-	// {
-	// 	++count; //使用文件作用域变量
-	// 	for (i = value; i >= 0; i++)
-	// 	{
-	// 		accumulate(i);
-	// 	}
-	// 	printf("Enter a positive integer(0 to quit): ");
-	// }
-	// report_count();
+	//int value; //自动变量
+	//register int i; //寄存器变量
+	//printf("Enter a positive integer(0 to quit):");
+	//while (scanf("%d", &value) == 1 && value > 0)
+	//{
+	//	++count; //使用文件作用域变量
+	//	for (i = value; i >= 0; i--)
+	//	{
+	//		accumulate(i);
+	//	}
+	//	printf("Enter a positive integer(0 to quit): ");
+	//}
+	//report_count();
 
 
 
@@ -111,10 +112,10 @@ int main()
 	//程序清单12.8
 	//r_drive0.c -- 测试rand0()函数
 	//与rand0.c -- 一起编译
-	// for (int count = 0; count < 5; count++)
-	// {
-	// 	printf("%d\n", rand0());
-	// }
+	/*for (int count = 0; count < 5; count++)
+	{
+	printf("%d\n", rand0());
+	}*/
 
 
 
@@ -122,19 +123,19 @@ int main()
 	//程序清单12.10
 	//r_drive1.c -- 测试rand1()和srand1()
 	//与s_and_r.c一起编译
-	// int countt;
-	// unsigned seed;
-	// printf("Please enter your choice for seed.\n");
-	// while (scanf("%u", &seed) == 1)
-	// {
-	// 	srand1(seed); //用获取到的值重置种子
-	// 	for (countt = 0; countt < 5; countt++)
-	// 	{
-	// 		printf("%d\n", rand1()); //打印随机数
-	// 		printf("Please enter next seed(q to quit):\n");
-	// 	}
-	// }
-	// printf("Done\n");
+	//int countt;
+	//unsigned seed;
+	//printf("Please enter your choice for seed.\n");
+	//while (scanf("%u", &seed) == 1)
+	//{
+	//	srand1(seed); //用获取到的值重置种子
+	//	for (countt = 0; countt < 5; countt++)
+	//	{
+	//		printf("%d\n", rand1()); //打印随机数
+	//	}
+	//printf("Please enter next seed(q to quit):\n");
+	//}
+	//printf("Done\n");
 	
 	
 
@@ -142,41 +143,41 @@ int main()
 	//程序清单12.14
 	//dyn_arr.c -- 动态分配数组
 	//提示输入最大数量 → 判断是否正确输入上线 → malloc申请空间 → 判断指针是否正确指向 → 提升录入数值 → 录入数值 → 循环打印 → 6个字符就换一行 → 最后一行换行 → 结束释放内存
-	double* ptd;
-	int max, number;
-	int i = 0;
-	puts("what is the maximum number of type double entries?");
-	if (scanf("%d", &max) != 1)
-	{
-		puts("Number not correctly entered -- bye.");
-		exit(EXIT_FAILURE);
-	}
-	ptd = (double*)malloc(max * sizeof(double));
-	if (ptd == NULL)
-	{
-		puts("Memory allocation failed. Goodbye.");
-		exit(EXIT_FAILURE);
-	}
-	puts("Please enter the value:(q to quit)");
-	while (scanf("%lf", &ptd[i]) == 1 && i < max)
-	{
-		i++;
-	}
-	printf("Here are your %d entries:\n", i);
-	for (int i = 0; i < max; i++)
-	{
-		printf("%7.2f", ptd[i]);
-		if (i % 7 == 6)
-		{
-			putchar('\n');
-		}
-	}
-	if (i % 7 != 0) //如果有位数
-	{
-		putchar('\n');
-	}
-	puts("Done!");
-	free(ptd);
+	//double* ptd;
+	//int max, number;
+	//int i = 0;
+	//puts("what is the maximum number of type double entries?");
+	//if (scanf("%d", &max) != 1)
+	//{
+	//	puts("Number not correctly entered -- bye.");
+	//	exit(EXIT_FAILURE);
+	//}
+	//ptd = (double*)malloc(max * sizeof(double));
+	//if (ptd == NULL)
+	//{
+	//	puts("Memory allocation failed. Goodbye.");
+	//	exit(EXIT_FAILURE);
+	//}
+	//puts("Please enter the value:(q to quit)");
+	//while (scanf("%lf", &ptd[i]) == 1 && i < max)
+	//{
+	//	i++;
+	//}
+	//printf("Here are your %d entries:\n", i);
+	//for (int i = 0; i < max; i++)
+	//{
+	//	printf("%7.2f", ptd[i]);
+	//	if (i % 7 == 6)
+	//	{
+	//		putchar('\n');
+	//	}
+	//}
+	//if (i % 7 != 0) //如果有位数
+	//{
+	//	putchar('\n');
+	//}
+	//puts("Done!");
+	//free(ptd);
 	
 	
 	
