@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<stdlib.h>
+
 
 
 
@@ -6,7 +8,11 @@
 void trystat(void); 
 void critic(void);
 void report_count();
-void accumulate(int k);
+extern void accumulate(int k); //调用外部函数
+extern unsigned int rand0(void); //调用外部函数
+extern void srand1(unsigned int x);
+extern int rand1(void);
+
 
 
 
@@ -82,19 +88,54 @@ int main()
 	//程序清单12.5
 	//parta.c -- 不同的存储类别
 	//与partb.c一起编译
-	int value; //自动变量
-	register int i; //寄存器变量
-	printf("Enter a positive integer(0 to quit):");
-	while (fscanf("%d", &value) == 1 && value > 0)
+	// int value; //自动变量
+	// register int i; //寄存器变量
+	// printf("Enter a positive integer(0 to quit):");
+	// while (fscanf("%d", &value) == 1 && value > 0)
+	// {
+	// 	++count; //使用文件作用域变量
+	// 	for (i = value; i >= 0; i++)
+	// 	{
+	// 		accumulate(i);
+	// 	}
+	// 	printf("Enter a positive integer(0 to quit): ");
+	// }
+	// report_count();
+
+
+
+
+	//程序清单12.8
+	//r_drive0.c -- 测试rand0()函数
+	//与rand0.c -- 一起编译
+	// for (int count = 0; count < 5; count++)
+	// {
+	// 	printf("%d\n", rand0());
+	// }
+
+
+
+
+	//程序清单12.10
+	//r_drive1.c -- 测试rand1()和srand1()
+	//与s_and_r.c一起编译
+	int countt;
+	unsigned seed;
+	printf("Please enter your choice for seed.\n");
+	while (scanf("%u", &seed) == 1)
 	{
-		++count; //使用文件作用域变量
-		for (i = value; i >= 0; i++)
+		srand1(seed); //用获取到的值重置种子
+		for (countt = 0; countt < 5; countt++)
 		{
-			accumulate(i);
+			printf("%d\n", rand1()); //打印随机数
+			printf("Please enter next seed(q to quit):\n");
 		}
-		printf("Enter a positive integer(0 to quit): ");
 	}
-	report_count();
+	printf("Done\n");
+	
+	
+	
+
 
 
 
