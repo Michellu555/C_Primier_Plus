@@ -142,14 +142,48 @@ int main()
 
 
 
-	
-	
-	
+	//程序清单12.13
+	//manydice.c -- 多次仍骰子的模拟程序
+	//与diceroll.c一起编译
+	//以时间做种 → 提示并输入每个骰子的面数 → 提示并输入骰子数 → 处理错误输入 → 计算总点数 → 打印总点数
+	//int dice, roll, sides, status;
+	//srand((unsigned int)time(0)); //以时间做种
+	//puts("Enter the number of sides per die, 0 to quit.");
+	//while (scanf("%d", &sides) == 1 && sides > 0) //面数
+	//{
+	//	puts("How many dies?");
+	//	if ((status = scanf("%d", &dice)) != 1) //输入错误时
+	//	{
+	//		if (status == EOF)
+	//		{
+	//			break;
+	//		}
+	//		else
+	//		{
+	//			puts("You should have entered an integer.");
+	//			puts("Les's begin again.");
+	//			while (getchar() != '\n')
+	//			{
+	//				continue;
+	//			}
+	//			puts("Now, how many sides? Enter 0 to quit.");
+	//			continue; //重新开始输入
+	//		}
+	//	}
+	//	roll = roll_n_dice(dice, sides); //计算总点数
+	//	printf("You have rolled a %d using %d %d-sides dice.\n", roll, dice, sides);
+	//	puts("How many sides? Put 0 to quit.");
+	//}
+	//printf("The rollem() function was called %d times.\n", roll_count);
+	//printf("GOOD FORTUNE TO YOU.!\n");
 
+
+	
+	
 
 	//程序清单12.14
 	//dyn_arr.c -- 动态分配数组
-	//提示输入最大数量 → 判断是否正确输入上线 → malloc申请空间 → 判断指针是否正确指向 → 提升录入数值 → 录入数值 → 循环打印 → 6个字符就换一行 → 最后一行换行 → 结束释放内存
+	//提示输入最大数量 → 判断是否正确输入上限 → malloc申请空间 → 判断指针是否正确指向 → 提升录入数值 → 录入数值 → 循环打印 → 6个字符就换一行 → 最后一行换行 → 结束释放内存
 	//double* ptd;
 	//int max, number;
 	//int i = 0;
@@ -166,14 +200,14 @@ int main()
 	//	exit(EXIT_FAILURE);
 	//}
 	//puts("Please enter the value:(q to quit)");
-	//while (scanf("%lf", &ptd[i]) == 1 && i < max)
+	//while (i < max && scanf("%lf", &ptd[i]) == 1) //将i<max放前面就先进行判断
 	//{
 	//	i++;
 	//}
 	//printf("Here are your %d entries:\n", i);
-	//for (int i = 0; i < max; i++)
+	//for (i = 0; i < max; i++)
 	//{
-	//	printf("%7.2f", ptd[i]);
+	//	printf("%7.2f ", ptd[i]);
 	//	if (i % 7 == 6)
 	//	{
 	//		putchar('\n');
@@ -188,11 +222,8 @@ int main()
 
 
 	
-	//程序清单12.13
-	//manydice.c -- 多次仍骰子的模拟程序
-	//与diceroll.c一起编译
 	
-
+	
 	
 	
 	

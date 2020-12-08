@@ -88,7 +88,6 @@ static int rollem(int sides) //计算透出的骰子的点数和次数
 
 int roll_n_dice(int dice, int sides) //计算骰子数量和总点数
 {
-    int roll;
     int total = 0;
     if (sides < 2) //骰子面数
     {
@@ -103,6 +102,6 @@ int roll_n_dice(int dice, int sides) //计算骰子数量和总点数
     for (int i = 0; i < dice; i++)
     {
         total += rollem(sides);
-        return total;
     }
+    return total;
 }
