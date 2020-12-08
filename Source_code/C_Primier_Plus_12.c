@@ -1,5 +1,7 @@
 #include<stdio.h>
-#include<stdlib.h>
+#include<stdlib.h> //为srand()提供原型
+#include<time.h> //为time()提供原型
+#include "diceroll.h" //为roll_n_dice()提供原型，为roll_count变量提供声明
 
 
 
@@ -136,6 +138,11 @@ int main()
 	//printf("Please enter next seed(q to quit):\n");
 	//}
 	//printf("Done\n");
+
+
+
+
+	
 	
 	
 
@@ -178,6 +185,14 @@ int main()
 	//}
 	//puts("Done!");
 	//free(ptd);
+
+
+	
+	//程序清单12.13
+	//manydice.c -- 多次仍骰子的模拟程序
+	//与diceroll.c一起编译
+	
+
 	
 	
 	
