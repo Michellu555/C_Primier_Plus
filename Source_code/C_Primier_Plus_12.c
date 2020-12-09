@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 #include<stdlib.h> //为srand()提供原型
 #include<time.h> //为time()提供原型
 #include "diceroll.h" //为roll_n_dice()提供原型，为roll_count变量提供声明
@@ -21,9 +22,10 @@ extern int rand1(void);
 
 
 
-
 int nuits = 0; //定义外部变量
 int count = 0; //文件作用域，外部链接
+int static_store = 30;
+const char* pcg = "String Literal";
 
 
 
@@ -222,12 +224,33 @@ int main()
 
 
 	
+	//程序清单12.15
+	//where.c -- 数据被储存在何处
+	int auto_store = 40;
+	char auto_string[] = "Auto char Array";
+	int* pi;
+	char* pcl;
+	pi = (int*)malloc(sizeof(int));
+	*pi = 35;
+	pcl = (char*)malloc(strlen("Dynamic String") + 1);
+	strcpy(pcl, "Dynamic String");
+	printf("static_store: %d at %p\n", static_store, &static_store);
+	printf(" aotu_sotre: %d at %p\n", auto_store, &auto_store);
+	printf("   *pi: %d at %p\n", *pi, pi);
+	printf("   %s at %p\n", pcg, pcg);
+	printf("   %s at %p\n", auto_string, auto_string);
+	printf("   %s at %p\n", pcl, pcl);
+	printf("   %s at %p\n", "Quoted String", "Quoted String");
+	free(pi);
+	free(pcl);
 	
 	
 	
 	
 	
 	
+	
+
 	
 
 
