@@ -1,9 +1,11 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include "func_12_test.h"
 
 
 
 int call_time;
+int sets; //Ò¡÷»×Ó´ÎÊý
 
 
 
@@ -80,5 +82,60 @@ int called_time(void)
 	call_time++;
 	return called_time;
 }
+
+
+void roll(int num)
+{
+	int total = 0;
+	int sides, dice;
+	printf("How many sides and how many dice?");
+	scanf("%d %d", &sides, &dice);
+	printf("Here are %d sets of %d %d-sided throws.\n", num, dice, sides);
+	for (int i = 0; i < num; i++)
+	{
+		total = roller(sides, dice);
+		printf("%-4d", total);
+	}
+	putchar('\n');
+}
+
+
+int roller(int a, int b)
+{
+	int sum = 0;
+	for (int i = 0; i < b; i++)
+	{
+		sum += rand() % a + 1;
+	}
+
+	return sum;
+}
+
+
+int* make_array(int size, int value)
+{
+	int* ptr;
+	ptr = (int*)malloc(size * sizeof(int));
+	for (int i = 0; i < size; i++)
+	{
+		*(ptr + i) = value;
+	}
+
+	return ptr;
+}
+
+
+
+void show_array(int* pt, int num)
+{
+	for (int i = 0; i < num; i++)
+	{
+		printf("%-3d", *(pt + i));
+	}
+	putchar('\n');
+}
+
+
+
 
 

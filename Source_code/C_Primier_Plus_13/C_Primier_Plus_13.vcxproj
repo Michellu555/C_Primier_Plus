@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{07fbbdcb-e4bf-46d1-87b2-95c9b55c15b6}</ProjectGuid>
-    <RootNamespace>CPrimierPlus12Test</RootNamespace>
+    <ProjectGuid>{5d61ee93-fb90-4bfe-9257-c9f48179f4aa}</ProjectGuid>
+    <RootNamespace>CPrimierPlus13</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -139,11 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C_Primier_Plus_Test_12.c" />
-    <ClCompile Include="func_12_test.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="func_12_test.h" />
+    <ClCompile Include="C_Primier_Plus_13.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
