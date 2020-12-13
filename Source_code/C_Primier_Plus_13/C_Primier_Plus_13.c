@@ -1,12 +1,17 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<stdlib.h>
+#include<string.h>
 
 
 #define LEN 40
+#define MAX 41
+#define CNTL_Z '\032'
+#define SLEN 81
 
 
-int main(int argc, char** argv)
+void tem(char[], int);
+
+int main()
 {
     //程序清单13.1
     //count.c -- 使用标准I/O
@@ -73,16 +78,89 @@ int main(int argc, char** argv)
 
 
 
+    //程序清单13.3
+    //addword.c -- 使用fprintf(), fscanf()和rewind()
+    //定义文件指针与字符串 → 打开文件并判断是否成功 → 从键盘输入并 → 输入信息输入到文件中 → 从定位到文件开头并再次输入 → 输出到屏幕上验证 → 关闭文件
+    /*FILE *fp;
+    char words[MAX];
+    if ((fp = fopen("wordy", "w+")) == NULL)
+    {
+        fprintf(stderr, "Can't open the \"word\" file.\n");
+        exit(EXIT_FAILURE);
+    }
+    puts("Enter words to add the file;\npress the # key at the beginning of a line to terminate.");
+    while ((fscanf(stdin, "%40s", words) == 1) && (words[0] != '#'))
+    {
+        fprintf(fp, "%s\n", words);
+    }
+    puts("File contents:");
+    rewind(fp);
+    while (fscanf(fp, "%s", words) == 1)
+    {
+        puts(words);
+    }
+    puts("Done!");
+    if (fclose(fp) != 0)
+    {
+        fprintf(stderr, "Failed to close the file.\n");
+    }*/
+
+    //程序清单13.4
+    //reverse.c -- 倒序显示文件的内容
+    /*char file[SLEN];
+    char ch;
+    FILE* fp;
+    long count, last;
+    puts("Enter the name of the file to be processed: ");
+    scanf("%80s", file);
+    if ((fp = fopen(file, "rb")) == NULL)
+    {
+        printf("reverse can't open %s\n", file);
+        exit(EXIT_FAILURE);
+    }
+    fseek(fp, 0L, SEEK_END);
+    last = ftell(fp);
+    for (count = 1L; count <= last; count++)
+    {
+        fseek(fp, -count, SEEK_END);
+        ch = getc(fp);
+        if (ch != CNTL_Z && ch != 'r')
+        {
+            putchar(ch);
+        }
+    }
+    putchar('\n');
+    fclose(fp);*/
+
+    FILE *fp;
+    char st[20] = { "Michel." };
+    fpos_t pos;
+    fp = fopen("saisai.txt", "r+");
+    fgetpos(fp, &pos);
+    fsetpos(fp, &pos + 5);
+    fputs(st, fp);
+    fclose(fp);
 
     
-  
-    
-   
 
     
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return 0;
 }
