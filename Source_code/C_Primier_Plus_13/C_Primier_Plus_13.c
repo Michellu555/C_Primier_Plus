@@ -132,20 +132,40 @@ int main()
     putchar('\n');
     fclose(fp);*/
 
+
+    //程序清单附1
+    //使用setvbuf和fflush
+    //char buff[1024];
+    //memset(buff, '\0', 1024);
+    //setvbuf(stdout, buff, _IOFBF, 1024); //针对于指定文件流，在指定的空间，以指定的模式，设置指定大小的缓存空间
+    //fprintf(stdout, "Hello, world!");
+    //fflush(stdout); //强制刷新，将缓存数据推送到指定文件流
+    //fprintf(stdout, "I'm Michel.Lu");
+    //fflush(stdout);
+    
+    
+    //程序清单附2
+    //使用fwrite和fread
+    /*char a[10] = "Hello";
+    char b[10];
+    memset(b, '\0', 10);
+    int num;
     FILE *fp;
-    char st[20] = { "Michel." };
-    fpos_t pos;
-    fp = fopen("saisai.txt", "r+");
-    fgetpos(fp, &pos);
-    fsetpos(fp, &pos + 5);
-    fputs(st, fp);
-    fclose(fp);
+    fp = fopen("Saisai.txt", "wb+");
+    fwrite(a, sizeof(char), 3, fp);
+    rewind(fp);
+    num = fread(b, sizeof(char), 3, fp);
+    printf("%s", b);
+    fclose(fp);*/
 
+
+    //程序清单13.5
+    //append.c -- 把文件附到另一个文件的末尾
     
 
+
+ 
     
-
-
 
 
 
