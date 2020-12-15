@@ -18,5 +18,13 @@
     <ClCompile Include="C_Primier_Plus_13.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="func_13.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="func_13.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,15 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include"func_13.h"
 
 
 #define LEN 40
 #define MAX 41
 #define CNTL_Z '\032'
 #define SLEN 81
+#define BUFSIZE 4096
 
 
-void tem(char[], int);
 
 int main()
 {
@@ -161,12 +162,80 @@ int main()
 
     //程序清单13.5
     //append.c -- 把文件附到另一个文件的末尾
+    FILE* fs;
+    FILE* fa; //fa指向目标文件，fs指向源文件
+    int files = 0; //附加的文件数量
+    char file_app[SLEN]; //目标文件名
+    char file_src[SLEN]; //源文件名
+    char ch;
+    puts("Enter name of destination file:");
+    s_gets(file_app, SLEN);
+    if ((fa = fopen(file_app, "a+")) == NULL) //打开目标文件
+    {
+        fprintf(stderr, "Can't to open the %s file", file_app); //???
+        exit(EXIT_FAILURE);
+    }
+    if ((setvbuf(fa, NULL, _IOFBF, BUFSIZE)) != 0) //创建缓冲区
+    {
+        fputs("Can't creat output buffer.", stderr);
+        exit(EXIT_FAILURE);
+    }
+
+
+    puts("Enter name of first source file(empty line to quit):");
+    while (s_gets(file_src, SLEN) && file_src[0] != '\0')
+    {
+        if (strcmp(file_src, file_app) == 0)
+        {
+            fprintf(stderr, "Can't append the file to itself.\n");
+        }
+        else
+        {
+            if ((fs = fopen(file_src, "r")) == NULL)
+            {
+                fputs("Can't opne the % file.", file_src, stderr);
+            }
+            else
+            {
+                if (setvbuf(fs, NULL, _IOFBF, BUFSIZE) != 0)
+                {
+                    fputs("Can't creat the input buffer.", stderr);
+                    continue;
+                }
+                append(fs, fa);
+                if (ferror(fs) != 0)
+                {
+                    fprintf(stderr, "Error in reading %s file.\n", file_src);
+                }
+                if (ferror(fa) != 0)
+                {
+                    fprintf(stderr, "Error in wrinting %s file.\n", file_app);
+                }
+                fclose(fs);
+                files++;
+                printf("File %s has been appended.\n", file_src);
+                puts("Next file(empty line to quit):");
+            }
+        }     
+    }
+
+
+    printf("Done appending. %d files appended.\n", files);
+    rewind(fa);
+    printf("%s contents:\n", file_app);
+    while ((ch = getc(fa)) != EOF)
+    {
+        putchar(ch);
+    }
+    puts("Done displaying.");
+    fclose(fa);
+
+
+
     
-
-
- 
     
-
+    
+    
 
 
 

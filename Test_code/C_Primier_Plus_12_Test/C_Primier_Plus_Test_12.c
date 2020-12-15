@@ -166,38 +166,42 @@ int main()
 	//并把地址存入该指针数组(该数组中每个元素都是指向char的指针）。
 	//然后，从临时数组中把单词拷贝到动态分配的存储空间中。因此，有一个字符指针数组，每个指针都指向一个对象，该对象的大小正好能容纳被储存的特定单词。
 	//下面是该程序的一个运行示例：
-	//How many words do you wish to enter ? 5
-	//Enter 5 words now :
-	//I enjoyed doing this exerise
-	//Here are your words :
-	//I
-	//enjoyed
-	//doing
-	//this
-	//exercise
-	//int size;
-	//char ch[50];
-	//printf("How many words do you wish to enter? ");
-	//scanf("%d", &size);
-	//while (getchar() != '\n')
-	//{
-	//	continue;
-	//}
-	//printf("Enter %d words now: \n", size);
-	//char** st;
-	//st = (char**)malloc(size * sizeof(char*));
-	//for (int i = 0; i < size; i++) //为每个单词分配空间
-	//{
-	//	gets(ch); //读入字符串
-	//	st[i] = (char*)malloc((strlen(ch) + 1) * sizeof(char));
-	//	strncpy(st[i], ch, strlen(ch));
-	//	st[i][strlen(ch)] = '\0';
-	//}
-	//for (int m = 0; m < size; m++)
-	//{
-	//	puts(st[m]);
-	//}
-	//free(st);
+	/*How many words do you wish to enter ? 5
+	Enter 5 words now :
+	I enjoyed doing this exerise
+	Here are your words :
+	I
+	enjoyed
+	doing
+	this
+	exercise*/
+	int size;
+	char ch[50];
+	printf("How many words do you wish to enter? ");
+	scanf("%d", &size);
+	while (getchar() != '\n')
+	{
+		continue;
+	}
+	printf("Enter %d words now: \n", size);
+
+
+	char** st;
+	st = (char**)malloc(size * sizeof(char*));
+	for (int i = 0; i < size; i++) //为每个单词分配空间
+	{
+		scanf("%50s", ch); //读入字符串
+		st[i] = (char*)malloc((strlen(ch) + 1) * sizeof(char));
+		strncpy(st[i], ch, strlen(ch));
+		st[i][strlen(ch)] = '\0';
+	}
+
+	printf("Here are your words:\n");
+	for (int m = 0; m < size; m++)
+	{
+		puts(st[m]);
+	}
+	free(st);
 	
 
 
