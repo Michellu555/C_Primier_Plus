@@ -9,6 +9,7 @@
 #define CNTL_Z '\032'
 #define SLEN 81
 #define BUFSIZE 4096
+#define ARSIZE 1000
 
 
 
@@ -162,74 +163,110 @@ int main()
 
     //程序清单13.5
     //append.c -- 把文件附到另一个文件的末尾
-    FILE* fs;
-    FILE* fa; //fa指向目标文件，fs指向源文件
-    int files = 0; //附加的文件数量
-    char file_app[SLEN]; //目标文件名
-    char file_src[SLEN]; //源文件名
-    char ch;
-    puts("Enter name of destination file:");
-    s_gets(file_app, SLEN);
-    if ((fa = fopen(file_app, "a+")) == NULL) //打开目标文件
+    //FILE* fs;
+    //FILE* fa; //fa指向目标文件，fs指向源文件
+    //int files = 0; //附加的文件数量
+    //char file_app[SLEN]; //目标文件名
+    //char file_src[SLEN]; //源文件名
+    //char ch;
+    //puts("Enter name of destination file:");
+    //s_gets(file_app, SLEN);
+    //if ((fa = fopen(file_app, "a+")) == NULL) //打开目标文件
+    //{
+    //    fprintf(stderr, "Can't to open the %s file", file_app); //???
+    //    exit(EXIT_FAILURE);
+    //}
+    //if ((setvbuf(fa, NULL, _IOFBF, BUFSIZE)) != 0) //创建缓冲区
+    //{
+    //    fputs("Can't creat output buffer.", stderr);
+    //    exit(EXIT_FAILURE);
+    //}
+    //puts("Enter name of first source file(empty line to quit):");
+    //while (s_gets(file_src, SLEN) && file_src[0] != '\0')
+    //{
+    //    if (strcmp(file_src, file_app) == 0)
+    //    {
+    //        fprintf(stderr, "Can't append the file to itself.\n");
+    //    }
+    //    else
+    //    {
+    //        if ((fs = fopen(file_src, "r")) == NULL)
+    //        {
+    //            fputs("Can't opne the % file.", file_src, stderr);
+    //        }
+    //        else
+    //        {
+    //            if (setvbuf(fs, NULL, _IOFBF, BUFSIZE) != 0)
+    //            {
+    //                fputs("Can't creat the input buffer.", stderr);
+    //                continue;
+    //            }
+    //            append(fs, fa);
+    //            if (ferror(fs) != 0)
+    //            {
+    //                fprintf(stderr, "Error in reading %s file.\n", file_src);
+    //            }
+    //            if (ferror(fa) != 0)
+    //            {
+    //                fprintf(stderr, "Error in wrinting %s file.\n", file_app);
+    //            }
+    //            fclose(fs);
+    //            files++;
+    //            printf("File %s has been appended.\n", file_src);
+    //            puts("Next file(empty line to quit):");
+    //        }
+    //    }     
+    //}
+    //printf("Done appending. %d files appended.\n", files);
+    //rewind(fa);
+    //printf("%s contents:\n", file_app);
+    //while ((ch = getc(fa)) != EOF)
+    //{
+    //    putchar(ch);
+    //}
+    //puts("Done displaying.");
+    //fclose(fa);
+
+
+    //程序清单13.6
+    //用二进制I/O进行随机访问
+    double numbers[ARSIZE];
+    double value;
+    const char* file = "numbers.dat";
+    int i;
+    long pos;
+    FILE* fp;
+    //填充数组
+    for ( i = 0; i < ARSIZE; i++)
     {
-        fprintf(stderr, "Can't to open the %s file", file_app); //???
+        numbers[i] = 100.0 * i + 1.0 / (i + 1);
+    }
+    //打开文件，写入数组
+    if ((fp = fopen(file, "wb")) == NULL)
+    {
+        fputs(stderr, "Can't open the %s file.", file);
         exit(EXIT_FAILURE);
     }
-    if ((setvbuf(fa, NULL, _IOFBF, BUFSIZE)) != 0) //创建缓冲区
+    fwrite(numbers, sizeof(double), ARSIZE, fp);
+    fclose(fp);
+    //读取数据
+    if ((fp = fopen(file, "rb")) == NULL)
     {
-        fputs("Can't creat output buffer.", stderr);
+        fputs(stderr, "Can't open the %s file.", file);
         exit(EXIT_FAILURE);
     }
-
-
-    puts("Enter name of first source file(empty line to quit):");
-    while (s_gets(file_src, SLEN) && file_src[0] != '\0')
+    //查找指定位置的值
+    printf("Enter an index in the range 0 - %d.\n", ARSIZE - 1);
+    while (scanf("%d", &i) == 1 && i > 0 && i < ARSIZE)
     {
-        if (strcmp(file_src, file_app) == 0)
-        {
-            fprintf(stderr, "Can't append the file to itself.\n");
-        }
-        else
-        {
-            if ((fs = fopen(file_src, "r")) == NULL)
-            {
-                fputs("Can't opne the % file.", file_src, stderr);
-            }
-            else
-            {
-                if (setvbuf(fs, NULL, _IOFBF, BUFSIZE) != 0)
-                {
-                    fputs("Can't creat the input buffer.", stderr);
-                    continue;
-                }
-                append(fs, fa);
-                if (ferror(fs) != 0)
-                {
-                    fprintf(stderr, "Error in reading %s file.\n", file_src);
-                }
-                if (ferror(fa) != 0)
-                {
-                    fprintf(stderr, "Error in wrinting %s file.\n", file_app);
-                }
-                fclose(fs);
-                files++;
-                printf("File %s has been appended.\n", file_src);
-                puts("Next file(empty line to quit):");
-            }
-        }     
+        pos = (long)(i * sizeof(double));
+        fseek(fp, pos, SEEK_SET);
+        fread(&value, sizeof(double), pos, fp);
+        printf("The value there is %f.\n", value);
+        printf("Next index(out of range to quit):\n");
     }
-
-
-    printf("Done appending. %d files appended.\n", files);
-    rewind(fa);
-    printf("%s contents:\n", file_app);
-    while ((ch = getc(fa)) != EOF)
-    {
-        putchar(ch);
-    }
-    puts("Done displaying.");
-    fclose(fa);
-
+    fclose(fp);
+    puts("Bye!");
 
 
     
