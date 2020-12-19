@@ -1,19 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<math.h>
 
 
 
 
 #define LEN 4096
-#define SLEN 256
-#define NAME_LEN 40
+#define MAX 20
+#define M 9
+
+int distortion(int st[20][31], int m, int n, int j, int k);
 
 
 
-
-
-int main(int argc, char** argv)
+int main()
 {
     //1.修改程序清单13.1中的程序，要求提示用户输入文件名，并读取用户输入的信息，不使用命令行参数。
     //int ch;
@@ -21,7 +22,7 @@ int main(int argc, char** argv)
     //unsigned long count = 0;
     //printf("Please enter the file name: ");
     //char file_name[20];
-    //if (!scanf("%s", file_name)) //注意scanf拼写和返回值逻辑
+    //if (!scanf("%s", file_name)) 
     //{
     //    printf("Usage: %s filename\n", file_name);
     //    exit(EXIT_FAILURE);
@@ -42,7 +43,6 @@ int main(int argc, char** argv)
 
 
     //2.编写一个文件拷贝程序，该程序通过命令行获取原始文件名和拷贝文件名。尽量使用标准I/O和二进制模式。
-    //定义字符串与输入输出文件流 → 打开输入输出文件 → fread读取输出文件内容 → fwrite写入输入文件内容
     /*char temp[LEN];
     FILE *input, *output;
     size_t num;
@@ -59,8 +59,6 @@ int main(int argc, char** argv)
 
     //3.编写一个文件拷贝程序，提示用户输入文本文件名，并以该文件名作为原始文件名和输出文件名。
     //该程序要使用ctype.h中的toupper()函数，在写入到输出文件时把所有文本转换成大写。使用标准I/O和文本模式。
-    //定义一个文件流与一个字符串接收文件名和一个字符 → 提示用户输入文件名 → 输入文件名 → 只读模式打开文件
-    //fgetc读取字符 → if判断是否为小写字母，小写转大写，写入临时字符串 → 关闭文件 → 只写模式打开文件 → 写入文件 → 关闭文件
     // FILE* fp;
     // char file_name[256];
     // char temp[LEN];
@@ -213,50 +211,123 @@ int main(int argc, char** argv)
     //程序应包含错误检查，以确定参数数量是否正确和是否能打开文件。如果无法打开文件，程序应报告这一情况，然后继续处理下一个文件。
     //设置文件指针 → 判断argc是否大于2 → 如果不大于2就使用scanf输入 → 如果大于2，就使用命令行输入 →
     //打开文件，打不开就报错 → 查找指定字符是否出现并计数 → fprintf报告文件名，指定字符出现次数
-    /*
-    FILE *fp;
-    char ch;
-    int count = 0;
-    char file_name[NAME_LEN];
-    if (argc > 2)
-    {
-        for (int i = 0; i < argc - 2; i++)
-        {
-            if ((fp = fopen(argv[i + 2], "r")) == NULL)
-            {
-                fprintf(stderr, "Can't open the %s file.\n", argv[i + 2]);
-                exit(EXIT_FAILURE);
-            }
-            while ((ch = fgetc(fp)) != EOF)
-            {
-                if (ch == argv[1][0])
-                {
-                    count++;
-                }
-            }
-            fprintf(stdout, "The character %c has appeared %d times in %s file.\n", argv[1][0], count, argv[i + 2]);
-        }
-    }
-    else
-    {
-        printf("Please enter the file name that you want to open.\n");
-        scanf("%s", file_name);
-        if ((fp = fopen(file_name, "r")) == NULL)
-        {
-            fprintf(stderr, "Can't open the %s file.\n", file_name);
-            exit(EXIT_FAILURE);
-        }
-        while ((ch = fgetc(fp)) != EOF)
-        {
-            if (ch == argv[1][0])
-            {
-                count++;
-            }
-        }
-        fprintf(stdout, "The character %c has appeared %d times in %s file.\n", argv[1][0], count, file_name);
-    }
-    fclose(fp);
-    */
+    // FILE *fp;
+    // char ch;
+    // int count = 0;
+    // char file_name[NAME_LEN];
+    // if (argc > 2)
+    // {
+    //     for (int i = 0; i < argc - 2; i++)
+    //     {
+    //         if ((fp = fopen(argv[i + 2], "r")) == NULL)
+    //         {
+    //             fprintf(stderr, "Can't open the %s file.\n", argv[i + 2]);
+    //             exit(EXIT_FAILURE);
+    //         }
+    //         while ((ch = fgetc(fp)) != EOF)
+    //         {
+    //             if (ch == argv[1][0])
+    //             {
+    //                 count++;
+    //             }
+    //         }
+    //         fprintf(stdout, "The character %c has appeared %d times in %s file.\n", argv[1][0], count, argv[i + 2]);
+    //     }
+    // }
+    // else
+    // {
+    //     printf("Please enter the file name that you want to open.\n");
+    //     scanf("%s", file_name);
+    //     if ((fp = fopen(file_name, "r")) == NULL)
+    //     {
+    //         fprintf(stderr, "Can't open the %s file.\n", file_name);
+    //         exit(EXIT_FAILURE);
+    //     }
+    //     while ((ch = fgetc(fp)) != EOF)
+    //     {
+    //         if (ch == argv[1][0])
+    //         {
+    //             count++;
+    //         }
+    //     }
+    //     fprintf(stdout, "The character %c has appeared %d times in %s file.\n", argv[1][0], count, file_name);
+    // }
+    // fclose(fp);
+
+
+    // 9.修改程序清单13.3中的程序，从1开始，根据加入列表的顺序为每个单词编号。当程序下次运行时，确保新的单词编号接着上次的编号开始。
+    //声明文件流 → 以r模式打开文件流 → 以fgets读单词并计数，读到EOF结束 → 关闭文件 → 以a+模式打开文件 → 以fscanf写入新单词，依照count计数 → 打印所有单词 → 关闭文件
+    // FILE *fp; 
+    // char words[MAX];
+    // int count = 0;
+    // if ((fp = fopen("e.txt", "r")) == NULL) //以读模式打开文件流
+    // {
+    //     fprintf(stderr, "Can't open the %s file.\n", "e.txt");
+    //     exit(EXIT_FAILURE);
+    // }
+    // while ((fgets(words, 256,  fp)) != NULL) //以fgets读单词并计数，读到EOF结束 
+    // {
+    //     count++;
+    // }
+    // if (fclose(fp) != 0) //关闭文件
+    // {
+    //     fprintf(stderr, "Failed to close the file.\n");
+    // }
+    // if ((fp = fopen("e.txt", "a+")) == NULL) //以附加模式打开文件
+    // {
+    //     fprintf(stderr, "Can't open the %s file.\n", "e.txt");
+    //     exit(EXIT_FAILURE);
+    // }
+    // puts("Enter words to add the file;\npress the # key at the beginning of a line to terminate."); //以fscanf写入新单词，依照count计数
+    // while ((fscanf(stdin, "%s", words) == 1) && (words[0] != '#'))
+    // {
+    //     count++;
+    //     fprintf(fp, "%d %s\n", count, words); 
+    // }
+    // puts("File contents:"); //打印所有单词
+    // // rewind(fp); 
+    // fseek(fp, 0, SEEK_SET);
+    // while ((fgets(words, 256, fp)) != NULL)
+    // {
+    //     fputs(words, stdout);
+    // }
+    // puts("Done!");
+    // if (fclose(fp) != 0) //关闭文件
+    // {
+    //     fprintf(stderr, "Failed to close the file.\n");
+    // }
+
+
+    // 10.编写一个程序打开一个文本文件，通过交互方式获得文件名。通过一个循环，提示用户输入一个文件位置。然后该程序打印从该位置开始到下一个换行符之前的内容。用户输入负数或非数值字符可以结束输入循环。
+    //定义文件流，定义字符串 → scanf获取文件名 → 以r模式打开目标文件 → while循环录入用户输入的文件位置 → fgets获取需要内容 → fputs打印出该内容 →关闭文件
+    // FILE *fp;
+    // char temp[256];
+    // char file_name[20];
+    // int location = 0;
+    // printf("Please enter the file name that you want to open.\n");
+    // scanf("%s", file_name); //canf获取文件名
+    // if ((fp = fopen(file_name, "r")) == NULL) //以r模式打开目标文件
+    // {
+    //     fprintf(stderr, "Can't open the %s file.\n", file_name);
+    //     exit(EXIT_FAILURE);
+    // }
+    // fprintf(stdout, "Please enter the position that you want to jump(q to quit).\n");
+    // while (fscanf(stdin, "%d", &location) && location > 0) //while循环录入用户输入的文件位置
+    // {
+    //     fseek(fp, location, SEEK_SET);
+    //     if (fgets(temp, 256, fp) != NULL) //fgets获取需要内容
+    //     {
+    //         fputs(temp, stdout); //fputs打印出该内容
+    //     }
+    //     else
+    //     {
+    //         fprintf(stderr, "File ending, fail to print any world.\n");
+    //         exit(EXIT_FAILURE);
+    //     }
+    //     fprintf(stdout, "Please enter another position that you want ot jump(q to quit).\n");
+    // }
+    // printf("Done!\n");
+    // fclose(fp);
 
 
     //11.编写一个程序，接受两个命令行参数。第1个参数是一个字符串，第2个参数是一个文件名。
@@ -280,6 +351,223 @@ int main(int argc, char** argv)
     //fclose(fp);
 
 
+    // 12.创建一个文本文件，内含20行，每行30个整数。这些整数都在0~9之间，用空格分开。该文件是用数字表示一张图片，0~9表示逐渐增加的灰度。
+    //编写一个程序，把文件中的内容读入一个20×30的int数组中。一种把这些数字转换为图片的粗略方法是：
+    //该程序使用数组中的值初始化一个20×31的字符数组，用值0对应空格字符，1对应点字符，以此类推。数字越大表示字符所占的空间越大。
+    //例如，用#表示9。每行的最后一个字符（第31个）是空字符，这样该数组包含了20个字符串。
+    //最后，程序显示最终的图片(即，打印所有的字符串）,并将结果储存在文本文件中。
+    /*FILE *fp1, *fp2;
+    char temp[20][31];
+    if ((fp1 = fopen("g.txt", "r")) == NULL)
+    {
+        fprintf(stderr, "Can't open the %s file.\n", "g.txt");
+        exit(EXIT_FAILURE);
+    }
+    if ((fp2 = fopen("i.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Can't open the %s file.\n", "i.txt");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        for (int j = 0; j < 31; j++)
+        {
+            temp[i][j] = fgetc(fp1);
+            switch (temp[i][j])
+            {
+            case '0':
+                temp[i][j] = ' ';
+                break;
+            case '1':
+                temp[i][j] = '.';
+                break;
+            default:
+            case '2':
+                temp[i][j] = '\'';
+                break;
+            case '3':
+                temp[i][j] = ':';
+                break;
+            case '4':
+                temp[i][j] = '^';
+                break;
+            case '5':
+                temp[i][j] = '*';
+                break; 
+            case '6':
+                temp[i][j] = '=';
+                break;
+            case '8':
+                temp[i][j] = '%';
+                break;
+            case '9':
+                temp[i][j] = '#';
+                break;  
+            }
+            fputc(temp[i][j], stdout);
+            fputc(temp[i][j], fp2);
+        }
+        fputc('\n', stdout);
+        fputc('\n', fp2);
+    }
+    fclose(fp1);*/
+
+
+
+    //13.用变长数组（VLA)代替标准数组，完成编程练习12。
+    //有问题，待修改
+    FILE *fp1;
+    //char temp[20][31];
+    char ch;
+    int m, n;
+    char** temp;
+    temp = (char**)(malloc(20 * sizeof(char*)));
+
+    if ((fp1 = fopen("g.txt", "r")) == NULL)
+    {
+        fprintf(stderr, "Can't open the %s file.\n", "g.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    m = 0;
+    while ((fgets(temp[m], 31, fp1)) != NULL)
+    {
+        m++; //计算有多少行
+    }   
+    rewind(fp1);
+
+
+    for (int i = 0; i < m; i++)
+    {
+        n = 0;
+        while ((ch = fgetc(fp1)) != '\n')
+        {
+            n++;
+        }
+        temp[i] = (char*)(malloc((n + 1) * sizeof(char)));
+        fseek(fp1, -n, SEEK_CUR);
+        for (int j = 0; j < n; j++)
+        {
+            temp[i][j] = fgetc(fp1);
+            switch (temp[i][j])
+            {
+            case '0':
+                temp[i][j] = ' ';
+                break;
+            case '1':
+                temp[i][j] = '.';
+                break;
+            default:
+            case '2':
+                temp[i][j] = '\'';
+                break;
+            case '3':
+                temp[i][j] = ':';
+                break;
+            case '4':
+                temp[i][j] = '^';
+                break;
+            case '5':
+                temp[i][j] = '*';
+                break;
+            case '6':
+                temp[i][j] = '=';
+                break;
+            case '8':
+                temp[i][j] = '%';
+                break;
+            case '9':
+                temp[i][j] = '#';
+                break;
+            }
+            fputc(temp[i][j], stdout);
+        }
+        fputc('\n', stdout);
+    }
+    fclose(fp1);
+    
+    
+    
+
+    //14.数字图像，尤其是从宇宙飞船发回的数字图像，可能会包含一些失真。为编程练习12添加消除失真的函数。
+    //该函数把每个值与它上下左右相邻的值作比较，如果该值与其周围相邻值的差都大于1, 则用所有相邻值的平均值（四舍五入为整数）代替该值。
+    //注意，与边界上的点相邻的点少于4个，所以做特殊处理。
+    //FILE* fp1;
+    //int temp[20][31];
+    //char ch;
+    //int num;
+    //if ((fp1 = fopen("g.txt", "r")) == NULL)
+    //{
+    //    fprintf(stderr, "Can't open the %s file.\n", "g.txt");
+    //    exit(EXIT_FAILURE);
+    //}
+    //for (int i = 0; i < 20; i++) //录入数据到数组中
+    //{
+    //    for (int j = 0; j < 31; j++)
+    //    {
+    //        if ((ch = fgetc(fp1)) == '\n' || ch == EOF)
+    //        {
+    //            break;
+    //        }
+    //        temp[i][j] = (int)ch - 48;
+    //    }
+    //}
+    //for (int i = 0; i < 20; i++)
+    //{
+    //    for (int j = 0; j < 31; j++)
+    //    {
+    //        //printf("%c", temp[i][j]);
+    //        num = distortion(temp, i, j, 20, 30);
+    //        switch (num)
+    //        {
+    //        case 0:
+    //            num = ' ';
+    //            break;
+    //        case 1:
+    //            num = '.';
+    //            break;
+    //        default:
+    //        case 2:
+    //            num = '\'';
+    //            break;
+    //        case 3:
+    //            num = ':';
+    //            break;
+    //        case 4:
+    //            num = '^';
+    //            break;
+    //        case 5:
+    //            num = '*';
+    //            break;
+    //        case 6:
+    //            num = '=';
+    //            break;
+    //        case 8:
+    //            num = '%';
+    //            break;
+    //        case 9:
+    //            num = '#';
+    //            break;
+    //        }
+    //        fputc(num, stdout);
+    //    }
+    //    fputc('\n', stdout);
+    //}
+    //fclose(fp1);
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -293,4 +581,98 @@ int main(int argc, char** argv)
 
 
 	return 0;
+}
+
+
+
+
+
+int distortion(int st[20][31], int m, int n, int j, int k) //m表示当前行数，n表示当前列数，j表示总行数，k表示总列数
+{
+    //左上角 + 右上角 + 上边
+    if (m == 0)
+    {
+        if (n == 0) //左上角
+        {
+            if ((abs(st[m][n + 1] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1))
+            {
+                st[m][n] = (st[m][n + 1] + st[m + 1][n]) / 2.0 + 0.5;
+                return st[m][n];
+            }
+        }
+        else if (n == k - 1) //右上角
+        {
+            if ((abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1))
+            {
+                st[m][n] = (st[m][n - 1] + st[m + 1][n]) / 2.0 + 0.5;
+                return st[m][n];
+            }
+        }
+        else //上边
+        {
+            if ((abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1) && (abs(st[m][n + 1] - st[m][n]) > 1)) //左下右
+            {
+                st[m][n] = ((st[m][n - 1] + st[m + 1][n] + st[m][n + 1]) / 3.0 + 0.5);
+                return st[m][n];
+            }
+        }
+    }
+    //左下角 + 右下角 + 下边
+    if (m == j - 1)
+    {
+        if (n == 0) //左下角
+        {
+            if ((abs(st[m - 1][n] - st[m][n]) > 1) && (abs(st[m][n + 1] - st[m][n]) > 1))
+            {
+                st[m][n] = (st[m - 1][n] + st[m][n + 1]) / 2.0 + 0.5;
+                return st[m][n];
+            }
+        }
+        else if (n == k - 1) //右下角
+        {
+            if ((abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m - 1][n] - st[m][n]) > 1))
+            {
+                st[m][n] = (st[m][n - 1] + st[m - 1][n]) / 2.0 + 0.5;
+                return st[m][n];
+            }
+        }
+        else //下边
+        {
+            if ((abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m - 1][n] - st[m][n]) > 1) && (abs(st[m][n + 1] - st[m][n]) > 1)) //左上右
+            {
+                st[m][n] = ((st[m][n - 1] + st[m - 1][n] + st[m][n + 1]) / 3.0 + 0.5);
+                return st[m][n];
+            }
+        }
+    }
+    //左边
+    if (n == 0 && (m != 0 || m != j - 1))
+    {
+        if ((abs(st[m - 1][n] - st[m][n]) > 1) && (abs(st[m][n + 1] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1)) //上右下
+        {
+            st[m][n] = ((st[m - 1][n] + st[m][n + 1] + st[m + 1][n]) / 3.0 + 0.5);
+            return st[m][n];
+        }
+    }
+    //右边
+    if (n == k - 1 && (m != 0 || m != j - 1))
+    {
+        if ((abs(st[m - 1][n] - st[m][n]) > 1) && (abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1)) //上左下
+        {
+            st[m][n] = ((st[m - 1][n] + st[m][n - 1] + st[m + 1][n]) / 3.0 + 0.5);
+            return st[m][n];
+        }
+    }
+    //中间
+    if (m > 0 && m < j - 1 && n > 0 && n < k - 1)
+    {
+        if ((abs(st[m - 1][n] - st[m][n]) > 1) && (abs(st[m + 1][n] - st[m][n]) > 1) && (abs(st[m][n - 1] - st[m][n]) > 1) && (abs(st[m][n + 1] - st[m][n]) > 1)) //上下左右
+        {
+            st[m][n] = ((st[m - 1][n] + st[m + 1][n] + st[m][n - 1] + st[m][n + 1]) / 4.0 + 0.5);
+            return st[m][n];
+        }
+    }
+
+
+    return st[m][n];
 }
