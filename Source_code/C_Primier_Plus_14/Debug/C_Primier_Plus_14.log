@@ -1,4 +1,2 @@
-﻿  func_14.c
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\func_14.c(13,16): warning C4013: “strchr”未定义；假设外部返回 int
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\func_14.c(13,26): warning C4047: “=”:“char *”与“int”的间接级别不同
+﻿  C_Primier_Plus_14.c
   C_Primier_Plus_14.vcxproj -> C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\Debug\C_Primier_Plus_14.exe
