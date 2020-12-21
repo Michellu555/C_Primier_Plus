@@ -51,7 +51,11 @@ struct funds
 
 
 
-double sum(double, double);
+
+//double sum(double, double);
+//double sum(const struct funds*); //sum函数的形参为结构指针
+//double sum(struct funds moolah); //sum函数的形参为结构
+
 
 
 
@@ -167,17 +171,44 @@ int main()
 	
 	//程序清单14.5funds1.c
 	//funds1.c -- 把结构成员作为参数传递
-	struct funds stan = 
+	/*struct funds stan = 
 	{
 		"Galic-Melon Bank",
 		4032.27,
 		"Lucky's Savings and Loan",
 		8543.94
 	};
-	printf("Stan has a total of $%.2f.\n", sum(stan.bankfund, stan.savefund));
+	printf("Stan has a total of $%.2f.\n", sum(stan.bankfund, stan.savefund));*/
+
+
+	//程序清单14.6funds2.c
+	//funds2.c -- 传递指向结构的指针
+	//struct funds stan =
+	//{
+	//	"Galic-Melon Bank",
+	//	4032.27,
+	//	"Lucky's Savings and Loan",
+	//	8543.94
+	//};
+	//printf("Stan has a total of $%.2f.\n", sum(&stan)); //将指针传递进去
+
+
+	//程序清单14.7funds3.c
+	//fundds3.c -- 传递一个结构
+	/*struct funds stan =
+	{
+		"Galic-Melon Bank",
+		4032.27,
+		"Lucky's Savings and Loan",
+		8543.94
+	};
+	printf("Stan has a total of $%.2f.\n", sum(stan));*/
+
 
 	
 	
+	
+
 
 	
 
@@ -208,7 +239,17 @@ int main()
 
 
 
-double sum(double x, double y)
-{
-	return(x + y);
-}
+//double sum(double x, double y)
+//{
+//	return(x + y);
+//}
+
+//double sum(const struct funds *money) //sum函数的形参为结构指针
+//{
+//	return (money->bankfund + money->savefund);
+//}
+
+//double sum(struct funds moolah)
+//{
+//	return (moolah.bankfund + moolah.savefund);
+//}
