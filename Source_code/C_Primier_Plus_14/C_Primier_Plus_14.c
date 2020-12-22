@@ -7,11 +7,12 @@
 
 #define MAXTITL 41  //书名的最长度 + 1
 #define MAXAUTL 31  //作者姓名的最大长度 + 1
-#define MAXBKS 3  //书籍的最大数量
+#define MAXBKS 10  //书籍的最大数量
 #define LEN 20
 #define FUNDLEN 50
 #define NLEN 30
 #define SLEN 81
+#define N 2
 
 
 
@@ -29,8 +30,6 @@ struct namectt
 	char* last;
 	int letters;
 };
-
-
 
 const char* msgs[5] =
 {
@@ -70,6 +69,15 @@ struct funds
 	double savefund;
 };
 
+struct flex
+{
+	size_t count;
+	double average;
+	double scores[]; //伸缩数组成员
+};
+
+
+
 
 
 
@@ -102,67 +110,67 @@ int main()
 	//程序清单14.2
 	//manybook.c -- 包含多本书的图书目录
 	//声明结构数组 → 录入书名，作者名及价格 → 判断是否输入完成，如果没有就继续输入 → 输出
-	/*int count = 0;
-	struct book library[MAXBKS];
-	printf("Please enter the book title.\n");
-	printf("Press enter key at the start of a line to stop.\n");
-	while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0]!= '\0')
-	{
-		printf("Now enter the author.\n");
-		s_gets(library[count].author, MAXAUTL);
-		printf("Now enter the value.\n");
-		scanf("%f", &library[count++].value);
-		while (getchar() != '\n')
-		{
-			continue;
-		}
-		if (count < MAXBKS)
-		{
-			printf("Enter the next title.\n");
-		}
-	}
-	if (count > 0)
-	{
-		for (int index = 0; index < count; index++)
-		{
-			printf("Here is the list of your books:\n");
-			printf("%s by %s:$%.2f\n", library[index].title, library[index].author, library[index].value);
-		}
-	}
-	else
-	{
-		printf("No books? Too bad.\n");
-	}*/
+	//int count = 0;
+	//struct book library[MAXBKS];
+	//printf("Please enter the book title.\n");
+	//printf("Press enter key at the start of a line to stop.\n");
+	//while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0]!= '\0')
+	//{
+	//	printf("Now enter the author.\n");
+	//	s_gets(library[count].author, MAXAUTL);
+	//	printf("Now enter the value.\n");
+	//	scanf("%f", &library[count++].value);
+	//	while (getchar() != '\n')
+	//	{
+	//		continue;
+	//	}
+	//	if (count < MAXBKS)
+	//	{
+	//		printf("Enter the next title.\n");
+	//	}
+	//}
+	//if (count > 0)
+	//{
+	//	for (int index = 0; index < count; index++)
+	//	{
+	//		printf("Here is the list of your books:\n");
+	//		printf("%s by %s:$%.2f\n", library[index].title, library[index].author, library[index].value);
+	//	}
+	//}
+	//else
+	//{
+	//	printf("No books? Too bad.\n");
+	//}
 
 
 	//程序清单14.3
 	//friend.c -- 嵌套结构示例
-	/*struct guy fellow =
-	{
-		{"Ewen", "Villard"},
-		"grilled salmon", 
-		"personality coach",
-		68112.00
-	};
-	printf("Dear %s, \n\n", fellow.handle.first);
-	printf("%s%s\n", msgs[0], fellow.handle.first);
-	printf("%s%s\n", msgs[1], fellow.job);
-	printf("%s\n", msgs[2]);
-	printf("%s%s%s", msgs[3], fellow.favfood, msgs[4]);
-	if (fellow.income > 150000.0)
-	{
-		puts("!!");
-	}
-	else if (fellow.income > 75000.0)
-	{
-		puts("!");
-	}
-	else
-	{
-		puts(".");
-	}
-	printf("\n%40s%s\n", " ", "See you soon,");
-	printf("%40s%s\n", " ", "Shalala");*/
+	//struct guy fellow =
+	//{
+	//	{"Ewen", "Villard"},
+	//	"grilled salmon", 
+	//	"personality coach",
+	//	68112.00
+	//};
+	//printf("Dear %s, \n\n", fellow.handle.first);
+	//printf("%s%s\n", msgs[0], fellow.handle.first);
+	//printf("%s%s\n", msgs[1], fellow.job);
+	//printf("%s\n", msgs[2]);
+	//printf("%s%s%s", msgs[3], fellow.favfood, msgs[4]);
+	//if (fellow.income > 150000.0)
+	//{
+	//	puts("!!");
+	//}
+	//else if (fellow.income > 75000.0)
+	//{
+	//	puts("!");
+	//}
+	//else
+	//{
+	//	puts(".");
+	//}
+	//printf("\n%40s%s\n", " ", "See you soon,");
+	//printf("%40s%s\n", " ", "Shalala");
 
 
 	//程序清单14.4
@@ -193,14 +201,14 @@ int main()
 	
 	//程序清单14.5funds1.c
 	//funds1.c -- 把结构成员作为参数传递
-	/*struct funds stan = 
-	{
-		"Galic-Melon Bank",
-		4032.27,
-		"Lucky's Savings and Loan",
-		8543.94
-	};
-	printf("Stan has a total of $%.2f.\n", sum(stan.bankfund, stan.savefund));*/
+	//struct funds stan = 
+	//{
+	//	"Galic-Melon Bank",
+	//	4032.27,
+	//	"Lucky's Savings and Loan",
+	//	8543.94
+	//};
+	//printf("Stan has a total of $%.2f.\n", sum(stan.bankfund, stan.savefund));
 
 
 	//程序清单14.6funds2.c
@@ -217,14 +225,14 @@ int main()
 
 	//程序清单14.7funds3.c
 	//fundds3.c -- 传递一个结构
-	/*struct funds stan =
-	{
-		"Galic-Melon Bank",
-		4032.27,
-		"Lucky's Savings and Loan",
-		8543.94
-	};
-	printf("Stan has a total of $%.2f.\n", sum(stan));*/
+	//struct funds stan =
+	//{
+	//	"Galic-Melon Bank",
+	//	4032.27,
+	//	"Lucky's Savings and Loan",
+	//	8543.94
+	//};
+	//printf("Stan has a total of $%.2f.\n", sum(stan));
 
 
 	
@@ -232,29 +240,166 @@ int main()
 
 	//程序清单14.8nemes1.c
 	//names1.c -- 使用指向结构的指针
-	/*struct namect person;
-	getinfo(&person);
-	makeinfo(&person);
-	showinfo(&person);*/
+	//struct namect person;
+	//getinfo(&person);
+	//makeinfo(&person);
+	//showinfo(&person);
 
 
 	//程序清单14.9names2.c
 	//names2.c -- 传递并返回结构
-	/*struct namect person;
-	person = getinfo();
-	person = makeinfo(person);
-	showinfo(person);*/
+	//struct namect person;
+	//person = getinfo();
+	//person = makeinfo(person);
+	//showinfo(person);
 	//showinfo(makeinfo(getinfo()));
 
 	
 	//程序清单14.10names3.c
 	//names3.c -- 使用指针和malloc()
-	struct namectt person;
-	getinfoo(&person);
-	makeinfoo(&person);
-	showinfoo(&person);
-	cleanup(&person);
+	//struct namectt person;
+	//getinfoo(&person);
+	//makeinfoo(&person);
+	//showinfoo(&person);
+	//cleanup(&person);
 
+	
+	//程序清单14.11
+	//complit.c -- 复合字面量
+	//用简单的方式使用结构
+	//struct book readfirst;
+	//int score;
+	//printf("Enter test score: ");
+	//scanf("%d", &score);
+	//if (score >= 84)
+	//{
+	//	readfirst = (struct book){ "Crime and Punishment", "Fyodor Dostoyevsky", 11.25 };
+	//}
+	//else
+	//{
+	//	readfirst = (struct book){ "Mr.Bouncy's Nice Hat", "Fred Winsome", 5.99 };
+	//}
+	//printf("Your assigned reading:\n");
+	//printf("%s by %s: $%.2f\n", readfirst.title, readfirst.author, readfirst.value);
+
+	
+	//程序清单14.12
+	//flexmemb.c -- 伸缩型数组成员
+	//struct flex *pf1, *pf2;
+	//int n = 5;
+	//int top = 0;
+	//pf1 = malloc(sizeof(struct flex) + n * sizeof(int));
+	//pf1->count = n;
+	//for (int i = 0; i < n; i++)
+	//{
+	//	pf1->scores[i] = 20.0 - i;
+	//	top += pf1->scores[i];
+	//}
+	//pf1->average = top / n;
+	//showFlex(pf1);
+	//n = 9;
+	//pf2 = malloc(sizeof(struct flex) + n * sizeof(int));
+	//pf2->count = n;
+	//for (int i = 0; i < n; i++)
+	//{
+	//	pf2->scores[i] = 20.0 - i / 2;
+	//	top += pf2->scores[i];
+	//}
+	//pf2->average = top / n;
+	//showFlex(pf2);
+	//free(pf1);
+	//free(pf2);
+
+
+	//程序清单14.13
+	//funds4.c -- 把结构数组传递给函数
+	//struct funds jones[N] = 
+	//{
+	//	{
+	//		"Garlic-Melon Bank",
+	//		4032.27,
+	//		"Lucky's Savings and Loan",
+	//		8543.97
+	//	},
+	//	{
+	//		"Honest Jack's Bnak",
+	//		3620.88,
+	//		"Party Time Savings",
+	//		3802.91
+	//	}
+	//};
+	//printf("The Joneses have a total of $%.2f.\n", sum(jones, N));
+
+
+	//程序清单14.14
+	//booksave.c -- 在文件中保存结构中的内容
+    //a+b模式打开文件并判断是否能打开 → rewind定位到文件开头 → while循环判断并充文件输入 → 输出 → 判断文件输出是否完全
+	struct book library[MAXBKS];
+	int count = 0;
+	int index, filecount;
+	FILE* pbooks;
+	int size = sizeof(struct book);
+	if ((pbooks = fopen("bool.dat", "a+b")) == NULL)
+	{
+		fprintf(stdout, "Can't open the file.\n");
+		exit(1);
+	}
+	rewind(pbooks);
+	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
+	{
+		if (count == 0)
+		{
+			puts("Current contents of book.dat:");
+		}
+		printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
+		count++;
+	}
+	filecount = count;
+	if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
+	{
+		fprintf("The book.dat file is full.\n", stderr);
+		exit(2);
+	}
+	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
+	puts("Please add new book title.");
+	puts("Press [enter] at the start of a line to stop.");
+	while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
+	{
+		printf("Now enter the author.\n");
+		s_gets(library[count].author, MAXAUTL);
+		puts("Now enter the value.");
+		scanf("%f", &library[count++].value);
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		if (count < MAXBKS)
+		{
+			puts("Enter the next title.");
+		}
+	}
+	if (count > 0) //打印数据
+	{
+		puts("Here is the list of your book:\n");
+		for (int i = 0; i < count; i++)
+		{
+			printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
+		}
+		fwrite(&library[filecount], size, count - filecount, pbooks);
+	}
+	else
+	{
+		puts("No books? Too bad.");
+		puts("Bye!");
+	}
+	fclose(pbooks);
+	
+
+
+	
+
+
+	
 
 
 	
@@ -375,4 +520,24 @@ void cleanup(struct namectt* pst)
 {
 	free(pst->fname);
 	free(pst->last);
+}
+
+void showFlex(const struct flex* p)
+{
+	printf("Scores: ");
+	for (int i = 0; i < p->count; i++)
+	{
+		printf("%g ", p->scores[i]);
+	}
+	printf("\nAverage:%g\n", p->average);
+}
+
+double sum(const struct funds money[], int n)
+{
+	double summary = 0.0;
+	for (int i = 0; i < n; i++)
+	{
+		summary += money[i].bankfund + money[i].savefund;
+	}
+	return summary;
 }

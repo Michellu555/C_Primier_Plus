@@ -12,3 +12,5 @@ void getinfoo(struct namectt* pst);
 void makeinfoo(struct namectt* pst);
 void showinfoo(struct namectt* pst);
 void cleanup(struct namectt* pst);
+void showFlex(const struct flex* p);
+double sum(const struct funds money[], int n);
