@@ -4,6 +4,10 @@
 
 
 
+
+
+
+
 char* s_gets(char* st, int n)
 {
 	char* aim, *find;
@@ -25,4 +29,8 @@ char* s_gets(char* st, int n)
 	}
 	return aim;
 }
+
+
+
+
 

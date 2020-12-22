@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 #include<time.h>
 #include"func_14.h"
 
@@ -9,6 +10,26 @@
 #define MAXBKS 3  //书籍的最大数量
 #define LEN 20
 #define FUNDLEN 50
+#define NLEN 30
+#define SLEN 81
+
+
+
+
+struct namect
+{
+	char fname[NLEN];
+	char lname[NLEN];
+	int letters;
+};
+
+struct namectt
+{
+	char* fname; //用指针代替数
+	char* last;
+	int letters;
+};
+
 
 
 const char* msgs[5] =
@@ -48,6 +69,8 @@ struct funds
 	char save[FUNDLEN];
 	double savefund;
 };
+
+
 
 
 
@@ -110,7 +133,6 @@ int main()
 	{
 		printf("No books? Too bad.\n");
 	}*/
-
 
 
 	//程序清单14.3
@@ -206,7 +228,40 @@ int main()
 
 
 	
+
+
+	//程序清单14.8nemes1.c
+	//names1.c -- 使用指向结构的指针
+	/*struct namect person;
+	getinfo(&person);
+	makeinfo(&person);
+	showinfo(&person);*/
+
+
+	//程序清单14.9names2.c
+	//names2.c -- 传递并返回结构
+	/*struct namect person;
+	person = getinfo();
+	person = makeinfo(person);
+	showinfo(person);*/
+	//showinfo(makeinfo(getinfo()));
+
 	
+	//程序清单14.10names3.c
+	//names3.c -- 使用指针和malloc()
+	struct namectt person;
+	getinfoo(&person);
+	makeinfoo(&person);
+	showinfoo(&person);
+	cleanup(&person);
+
+
+
+	
+	
+
+
+
 	
 
 
@@ -253,3 +308,71 @@ int main()
 //{
 //	return (moolah.bankfund + moolah.savefund);
 //}
+
+//void getinfo(struct namect* pst) //指向namect结构的指针
+//{
+//	printf("Please enter your first name.\n");
+//	s_gets(pst->fname, NLEN);
+//	printf("Please enter your last name.\n");
+//	s_gets(pst->lname, NLEN);
+//};
+
+//void makeinfo(struct namect* pst)
+//{
+//	pst->letters = strlen(pst->fname) + strlen(pst->lname);
+//}
+
+//void showinfo(const struct namect* pst)
+//{
+//	printf("%s %s, your name contains %d letters.\n", pst->fname, pst->lname, pst->letters);
+//}
+
+struct namect getinfo(void)
+{
+	struct namect test;
+	printf("Please enter your first name.\n");
+	s_gets(test.fname, NLEN);
+	printf("Please enter your last name.\n");
+	s_gets(test.lname, NLEN);
+	return test;
+}
+
+struct namect makeinfo(struct namect test)
+{
+	test.letters = strlen(test.lname) + strlen(test.fname);
+	return test;
+}
+
+void showinfo(struct namect test)
+{
+	printf("%s %s, your name contains %d letters.\n", test.fname, test.lname, test.letters);
+}
+
+void getinfoo(struct namectt *pst)
+{
+	char temp[NLEN];
+	printf("Please enter your first name.\n");
+	s_gets(temp, NLEN); //数组输入；
+	pst->fname = (char*)malloc(strlen(temp) + 1);
+	strcpy(pst->fname, temp);
+	printf("Please enter your alst name.\n");
+	s_gets(temp, NLEN);
+	pst->last = (char*)malloc(strlen(temp) + 1);
+	strcpy(pst->last, temp);
+}
+
+void makeinfoo(struct namectt* pst)
+{
+	pst->letters = strlen(pst->fname) + strlen(pst->last);
+}
+
+void showinfoo(struct namectt* pst)
+{
+	printf("%s %s, your name contains %d letters.\n", pst->fname, pst->last, pst->letters);
+}
+
+void cleanup(struct namectt* pst)
+{
+	free(pst->fname);
+	free(pst->last);
+}
