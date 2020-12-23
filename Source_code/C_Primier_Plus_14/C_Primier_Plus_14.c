@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
+#include<stdbool.h>
 #include"func_14.h"
 
 
@@ -76,7 +77,12 @@ struct flex
 	double scores[]; //伸缩数组成员
 };
 
-
+union hold
+{
+	int digit;
+	double bigfl;
+	char letter;
+};
 
 
 
@@ -334,69 +340,123 @@ int main()
 	//程序清单14.14
 	//booksave.c -- 在文件中保存结构中的内容
     //a+b模式打开文件并判断是否能打开 → rewind定位到文件开头 → while循环判断并充文件输入 → 输出 → 判断文件输出是否完全
-	struct book library[MAXBKS];
-	int count = 0;
-	int index, filecount;
-	FILE* pbooks;
-	int size = sizeof(struct book);
-	if ((pbooks = fopen("bool.dat", "a+b")) == NULL)
-	{
-		fprintf(stdout, "Can't open the file.\n");
-		exit(1);
-	}
-	rewind(pbooks);
-	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
-	{
-		if (count == 0)
-		{
-			puts("Current contents of book.dat:");
-		}
-		printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
-		count++;
-	}
-	filecount = count;
-	if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
-	{
-		fprintf("The book.dat file is full.\n", stderr);
-		exit(2);
-	}
-	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
-	puts("Please add new book title.");
-	puts("Press [enter] at the start of a line to stop.");
-	while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
-	{
-		printf("Now enter the author.\n");
-		s_gets(library[count].author, MAXAUTL);
-		puts("Now enter the value.");
-		scanf("%f", &library[count++].value);
-		while (getchar() != '\n')
-		{
-			continue;
-		}
-		if (count < MAXBKS)
-		{
-			puts("Enter the next title.");
-		}
-	}
-	if (count > 0) //打印数据
-	{
-		puts("Here is the list of your book:\n");
-		for (int i = 0; i < count; i++)
-		{
-			printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
-		}
-		fwrite(&library[filecount], size, count - filecount, pbooks);
-	}
-	else
-	{
-		puts("No books? Too bad.");
-		puts("Bye!");
-	}
-	fclose(pbooks);
+	//struct book library[MAXBKS];
+	//int count = 0;
+	//int index, filecount;
+	//FILE* pbooks;
+	//int size = sizeof(struct book);
+	//if ((pbooks = fopen("bool.dat", "a+b")) == NULL)
+	//{
+	//	fprintf(stdout, "Can't open the file.\n");
+	//	exit(1);
+	//}
+	//rewind(pbooks);
+	//while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
+	//{
+	//	if (count == 0)
+	//	{
+	//		puts("Current contents of book.dat:");
+	//	}
+	//	printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
+	//	count++;
+	//}
+	//filecount = count;
+	//if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
+	//{
+	//	fprintf("The book.dat file is full.\n", stderr);
+	//	exit(2);
+	//}
+	////提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
+	//puts("Please add new book title.");
+	//puts("Press [enter] at the start of a line to stop.");
+	//while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
+	//{
+	//	printf("Now enter the author.\n");
+	//	s_gets(library[count].author, MAXAUTL);
+	//	puts("Now enter the value.");
+	//	scanf("%f", &library[count++].value);
+	//	while (getchar() != '\n')
+	//	{
+	//		continue;
+	//	}
+	//	if (count < MAXBKS)
+	//	{
+	//		puts("Enter the next title.");
+	//	}
+	//}
+	//if (count > 0) //打印数据
+	//{
+	//	puts("Here is the list of your book:\n");
+	//	for (int i = 0; i < count; i++)
+	//	{
+	//		printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
+	//	}
+	//	fwrite(&library[filecount], size, count - filecount, pbooks);
+	//}
+	//else
+	//{
+	//	puts("No books? Too bad.");
+	//	puts("Bye!");
+	//}
+	//fclose(pbooks);
 	
 
-
+	//程序清单14.15
+	//enum.c -- 使用枚举类型的值
+	//enum spectrum
+	//{
+	//	red,
+	//	orange,
+	//	yellow,
+	//	green,
+	//	blue,
+	//	violet
+	//};
+	//enum spectrum color; //将color声明为枚举型
+	//char choice[LEN];
+	//bool color_is_found = false;
+	//char* color_menu[] = { "red", "orange", "yellow", "green", "bleu", "violet" };
+	//printf("Enter a color(empty line to quit):");
+	//while (s_gets(choice, LEN) != NULL && choice[0] != '\0')
+	//{
+	//	for (color = red; color <= violet; color++)
+	//	{
+	//		if (strcmp(choice, color_menu[color]) == 0)
+	//		{
+	//			color_is_found = true;
+	//			break;
+	//		}
+	//	}
+	//}
+	//if (color_is_found)
+	//{
+	//	switch (color)
+	//	{
+	//	case red: puts("Rose are red.");
+	//		break;
+	//	case orange: puts("Poppies are orange.");
+	//		break;
+	//	case yellow: puts("Sunflowers are yellow.");
+	//		break;
+	//	case green: puts("Grass is green.");
+	//		break;
+	//	case blue: puts("Bluebells are blue.");
+	//		break;
+	//	case violet: puts("Violets are violet.");
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//}
+	//else
+	//{
+	//	printf("I don't know about the color %s.\n", choice);
+	//	color_is_found = false;
+	//	puts("Next color, please(empty line to quit):");
+	//}
+	//puts("God bye!\n");
 	
+
 
 
 	
