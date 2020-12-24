@@ -457,12 +457,34 @@ int main()
 	//puts("God bye!\n");
 	
 
-
-
-	
-
-
-	
+	//程序清单14.16
+	//func_ptr.c --使用函数指针
+	char line[SLEN];
+	char copy[SLEN];
+	char choice;
+	void (*fp)(char*); //函数指针
+	puts("Enter a strin(empty line to quit):");
+	while (s_gets(line, LEN) != NULL && line[0] != '\0')
+	{
+		while ((choice = showmenu()) != 'n')
+		{
+			switch (choice)
+			{
+			case 'u': fp = ToUpper;
+				break;
+			case 'l': fp = ToLower;
+				break;
+			case 't': fp = Transpose;
+				break;
+			case 'o': fp = Dummy;
+				break;
+			}
+			strcpy(copy, line);
+			show(fp, copy);
+		}
+		puts("Enter a string(empty line to quit):");
+	}
+	puts("Bye!");
 	
 
 
@@ -601,3 +623,94 @@ double sum(const struct funds money[], int n)
 	}
 	return summary;
 }
+
+int squre(int n)
+{
+	return n * n;
+}
+
+int add(int num1, int num2)
+{
+	return num1 + num2;
+}
+
+int sub(int num1, int num2)
+{
+	return num1 - num2;
+}
+
+int calc(int (*fp)(int, int), int num1, int num2)
+{
+	return (*fp)(num1, num2);
+}
+
+char showmenu(void) //获取输入
+{
+	char ans;
+	puts("Enter menu choice:");
+	puts("u)uppercase        l)lowercase");
+	puts("t)transpose case   o)original case");
+	puts("n)next string");
+	ans = getchar();
+	ans = tolower(ans);
+	eatline();
+	while (strchr("ulton", ans) == NULL)
+	{
+		puts("Please enter a u, l, t, o, ot n:");
+		ans = tolower(getchar());
+		eatline();
+	}
+
+	return ans;
+}
+
+void eatline(void) //读取至行末尾
+{
+	while (getchar() != '\n')
+	{
+		continue;
+	}
+}
+
+void show(void(*fp)(char*), char* str)
+{
+	(*fp)(str);
+	puts(str);
+}
+
+void ToUpper(char* str)
+{
+	while (*str)
+	{
+		*str = toupper(*str);
+		str++;
+	}
+}
+void ToLower(char* str)
+{
+	while (*str)
+	{
+		*str = tolower(*str);
+		str++;
+	}
+}
+void Transpose(char* str) //大小写转置
+{
+	while (*str)
+	{
+		if (islower(*str))
+		{
+			*str = toupper(*str);
+		}
+		else if (isupper(*str))
+		{
+			*str = tolower(*str);	
+		}
+		str++;
+	}
+}
+void Dummy(char* str) //不更改字符串
+{
+
+}
+

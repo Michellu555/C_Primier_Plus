@@ -1,9 +1,10 @@
 ﻿  C_Primier_Plus_14.c
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(562,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(566,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(588,20): warning C4018: “<”: 有符号/无符号不匹配
-  func_14.c
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\func_14.c(17,16): warning C4013: “strchr”未定义；假设外部返回 int
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\func_14.c(17,26): warning C4047: “=”:“char *”与“int”的间接级别不同
-  正在生成代码...
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(482,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(584,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(588,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(610,20): warning C4018: “<”: 有符号/无符号不匹配
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(655,15): warning C4013: “tolower”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(685,17): warning C4013: “toupper”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(701,14): warning C4013: “islower”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\C_Primier_Plus_14.c(705,19): warning C4013: “isupper”未定义；假设外部返回 int
   C_Primier_Plus_14.vcxproj -> C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14\Debug\C_Primier_Plus_14.exe
