@@ -1,0 +1,522 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<stdlib.h>
+
+
+
+#define MAXTITL 41  //书名的最长度 + 1
+#define MAXAUTL 31  //作者姓名的最大长度 + 1
+#define MAXBKS 10  //书籍的最大数量
+#define CSIZE 4
+
+
+
+void showmenu(struct socail_security_number);
+void showmenu_t(char*, char*, char*, int);
+char* s_gets(char*, int);
+void get_average(struct student*);
+void output_information(struct student*);
+float total_average(struct student*);
+
+
+
+
+
+struct socail_name
+{
+	char fname[20];
+	char mnamde[20];
+	char lname[20];
+};
+
+struct socail_security_number
+{
+	int number;
+	struct socail_name name;
+};
+
+struct month
+{
+	char month_name[10];
+	char month_name_abbr[4];
+	int month_days;
+	int month_number;
+};
+
+struct book
+{
+	char title[MAXTITL];
+	char author[MAXAUTL];
+	float value;
+};
+
+struct name
+{
+	char fname[20];
+	char lname[20];
+};
+
+struct student
+{
+	struct name student_name;
+	float grade[3];
+	float average;
+};
+
+struct ball
+{
+	int number; //球员编号
+	char fname[20];
+	char lname[20];
+	int onstage; //上场次数
+	int hit; //击中数
+	int basse_on_ball; //走垒数
+	int RBI; //打点
+	float BABIP; //安打率
+};
+
+
+
+
+
+
+int main()
+{
+	//1.重新编写复习题5,用月份名的拼写代替月份号（别忘了使用strcmp())。在一个简单的程序中测试该函数。
+	//struct month months[12] =
+	//{
+	//	{"January", "jan", 31, "1"},
+	//	{"February", "feb", 28, "2"},
+	//	{"March", "mar", 31, "3"},
+	//	{"April", "arp", 30, "4"},
+	//	{"May","may", 31, "5"},
+	//	{"June", "jun", 30, "6"},
+	//	{"July", "jul", 31, "7"},
+	//	{"August", "aug", 31, "8"},
+	//	{"September", "sep", 30, "9"},
+	//	{"October", "oct", 31, "10"},
+	//	{"November", "nov", 30, "11"},
+	//	{"Devember", "dec", 31, "12"}
+	//};
+	//int sum = 0;
+	//char get_month[20];
+	//printf("Please enter the month you want.\n");
+	//scanf("%s", get_month);
+	//for (int i = 0; i < 12; i++)
+	//{
+	//	if (strcmp(get_month, months[i].month_name) == 0)
+	//	{
+	//	break;
+	//	}
+	//sum += months[i].month_days;
+	//}
+	//printf("The summary of the day incloude the month you choose is %d.\n", sum);
+
+
+	//2.编写一个函数，提示用户输入日、月和年。月份可以是月份号、月份名或月份名缩写。然后该程序应返回一年中到用户指定日子（包括这一天）的总天数。
+	// struct month months[12] =
+	// {
+	// 	{"January", "jan", 31, "1"},
+	// 	{"February", "feb", 28, "2"},
+	// 	{"March", "mar", 31, "3"},
+	// 	{"April", "arp", 30, "4"},
+	// 	{"May","may", 31, "5"},
+	// 	{"June", "jun", 30, "6"},
+	// 	{"July", "jul", 31, "7"},
+	// 	{"August", "aug", 31, "8"},
+	// 	{"September", "sep", 30, "9"},
+	// 	{"October", "oct", 31, "10"},
+	// 	{"November", "nov", 30, "11"},
+	// 	{"Devember", "dec", 31, "12"}
+	// };
+	// printf("Please enter the day, month and year that you want.\n");
+	// int year, days;
+	// char get_month[10];
+	// int sum = 0;
+	// scanf("%d%s%d", &days, get_month, &year);
+	// for (int i = 0; i < 12; i++)
+	// {
+	//	 if (strcmp(get_month, months[i].month_name) == NULL || strcmp(get_month, months[i].month_name_abbr) == NULL || strcmp(get_month, months[i].month_number) == NULL)
+	//	 {
+	//		 break;
+	//	 }
+	//	 sum += months[i].month_days;
+	// }
+	// sum += days;
+	// printf("%d.%s.%d is the %d days in this year.\n", days, get_month, year, sum);
+	//  
+	//return 0;
+
+
+	//3.修改程序清单14.2中的图书目录程序，使其按照输入图书的顺序输出图书的信息，然后按照标题字母的声明输出图书的信息，最后按照价格的升序输出图书的信息。
+	//int count = 0;
+	//struct book library[MAXBKS];
+	//struct book temp;
+	//printf("Please enter the book title.\n");
+	//printf("Press enter key at the start of a line to stop.\n");
+	//while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0]!= '\0')
+	//{
+	//	printf("Now enter the author.\n");
+	//	s_gets(library[count].author, MAXAUTL);
+	//	printf("Now enter the value.\n");
+	//	scanf("%f", &library[count++].value);
+	//	while (getchar() != '\n')
+	//	{
+	//		continue;
+	//	}
+	//	if (count < MAXBKS)
+	//	{
+	//		printf("Enter the next title.\n");
+	//	}
+	//}
+	//if (count > 0)
+	//{
+	//	for (int index = 0; index < count; index++)  //正常输出
+	//	{
+	//		printf("Here is the list of your books:\n");
+	//		printf("%s by %s:$%.2f\n", library[index].title, library[index].author, library[index].value);
+	//	}
+	//	printf("Here are the new order of the struct.\n"); //按名称排序后输出
+	//	for (int i = 0; i < count - 1; i++)
+	//	{
+	//		for (int j = 1; j < count; j++)
+	//		{
+	//			if (strcmp(library[i].title, library[j].title) > 0)
+	//			{
+	//				temp = library[i];
+	//				library[i] = library[j];
+	//				library[j] = temp;
+	//			}
+	//		}
+	//	}
+	//	for (int index = 0; index < count; index++)
+	//	{
+	//		printf("Here is the list of your books:\n");
+	//		printf("%s by %s:$%.2f\n", library[index].title, library[index].author, library[index].value);
+	//	}
+	//	printf("Here are the new order of the struct.\n"); //按价格排序后输出
+	//	for (int i = 0; i < count - 1; i++)
+	//	{
+	//		for (int j = 1; j < count; j++)
+	//		{
+	//			if (library[i].value > library[j].value)
+	//			{
+	//				temp = library[i];
+	//				library[i] = library[j];
+	//				library[j] = temp;
+	//			}
+	//		}
+	//	}
+	//	for (int index = 0; index < count; index++)
+	//	{
+	//		printf("Here is the list of your books:\n");
+	//		printf("%s by %s:$%.2f\n", library[index].title, library[index].author, library[index].value);
+	//	}
+	//}
+	//else
+	//{
+	//	printf("No books? Too bad.\n");
+	//}
+
+
+	//4.编写一个程序，创建一个有两个成员的结构模板：
+	//a.第1个成员是社会保险号，第2个成员是一个有3个成员的结构，第1个成员代表名，第2个成员代表中间名，第3个成员表示姓。
+	//创建并初始化一个内含5个该类型结构的数组。该程序以下面的格式打印数据：
+	//Dribble, Flossie M. - 302039823
+	//如果有中间名，只打印它的第1个字母，后面加一个点（.);如果没有中间名，则不用打印点。编写一个程序进行打印，把结构数组传递给这个函数。
+	//struct socail_security_number test[5] =
+	//{
+	//	{302039833, "Sfeaf", "Sfafds", "Werqrear"},
+	//	{302039843, "Sfeafdsf", "\0", "Werqrear"},
+	//	{302039823, "Dribble", "Mind", "Flossie"},
+	//	{302039853, "Sfeaf", "\0", "Werqrsfar"},
+	//	{302039863, "Sfeaf", "Sfafafs", "Werqrear"}
+	//};
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	showmenu(test[i]);
+	//}
+	//b.修改a部分，传递结构的值而不是结构的地址。
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	showmenu_t(test[i].name.fname, test[i].name.lname, test[i].name.mnamde, test[i].number);
+	//}
+
+
+	//5.编写一个程序满足下面的要求。
+	//a.外部定义一个有两个成员的结构模板name:一个字符串储存名，一个字符串储存姓。
+	//b.外部定义一个有3个成员的结构模板student : 一个name类型的结构，一个grade数组储存3个浮点型分数，一个变量储存3个分数平均数。
+	//c.在main()函数中声明一个内含CSIZE(CSIZE = 4)个student类型结构的数组，并初始化这些结构的名字部分。用函数执行e、f和g中描述的任务。
+	//struct student test[CSIZE] =
+	//{
+	//	{.student_name.fname = "Michel", .student_name.lname = "Lu"},
+	//	{.student_name.fname = "Zhang", .student_name.lname = "chouchou"},
+	//	{.student_name.fname = "Chou", .student_name.lname = "chou"},
+	//	{.student_name.fname = "Zhang", .student_name.lname = "dachou"}
+	//};
+	//d.以交互的方式获取每个学生的成绩，提示用户输入学生的姓名和分数。把分数储存到grade数组相应的结构中。可以在main()函数或其他函数中用循环来完成。
+	//char first_name[20], last_name[20];
+	//for (int i = 0; i < CSIZE; i++)
+	//{
+	//	printf("Please enter the student's first name and last name.\n");
+	//	scanf("%s%s", first_name, last_name);
+	//	int k;
+	//	for (k = 0; k < CSIZE; k++)
+	//	{
+	//		if (strcmp(first_name, test[k].student_name.fname) == 0 && strcmp(last_name, test[k].student_name.lname) == 0)
+	//		{
+	//			for (int j = 0; j < 3; j++)
+	//			{
+	//				printf("Please enter the student's score.\n");
+	//				scanf("%f", &test[k].grade[j]);
+	//			}
+	//			break;
+	//		}
+	//	}
+	//	if (k == 4)
+	//	{
+	//		printf("Your name is not correct.\n");
+	//	}
+	//}
+	//e.计算每个结构的平均分，并把计算后的值赋给合适的成员。
+	//get_average(test);
+	//f.打印每个结构的信息。
+	//printf("The students informations is as below.\n");
+	//output_information(test);
+	//g.打印班级的平均分，即所有结构的数值成员的平均值。
+	//printf("The average score for all student all subject is %.2f.\n", total_average(test));
+
+
+	//6.一个文本文件中保存着一个垒球队的信息。每行数据都是这样排列：
+	//4 Jessie Joybat 5 2 1 1
+	//第1项是球员号，为方便起见，其范围是0~18。第2项是球员的名。第3项是球员的姓。名和姓都是一个单词。第4项是官方统计的球员上场次数。
+	//接着3项分别是击中数、走垒数和打点（RBI)。文件可能包含多场比赛的数据，所以同一位球员可能有多行数据，而且同一位球员的多行数据之间可能有其他球员的数据。
+	//编写一个程序，把数据储存到一个结构数组中。该结构中的成员要分别表示球员的名、姓、上场次数、击中数、走垒数、打点和安打率（稍后计算）。
+	//可以使用球员号作为数组的索引。该程序要读到文件结尾，并统计每位球员的各项累计总和。
+	//世界棒球统计与之相关。例如，一次走垒和触垒中的失误不计入上场次数，但是可能产生一个RBI。
+	//但是该程序要做的是像下面描述的一样读取和处理数据文件，不会关心数据的实际含义。
+	//要实现这些功能，最简单的方法是把结构的内容都初始化为零，把文件中的数据读入临时变量中，然后将其加入相应的结构中。
+	//程序读完文件后，应计算每位球员的安打率，并把计算结果储存到结构的相应成员中。计算安打率是用球员的累计击中数除以上场累计次数。
+	//这是一个浮点数计算。最后，程序结合整个球队的统计数据，一行显示一位球员的累计数据。
+	//初始化结构数组并全部赋值为零 → 使用临时结构接收所有文件读取字符 → 将读取字符添加到对应结构数组中 → 计算安打率 → 打印信息
+	//struct ball player[19];
+	//struct ball temp;
+	//for (int i = 0; i < 19; i++) ////初始化结构数组并全部赋值为零
+	//{
+	//	memset(&player[i], 0, sizeof(player[i]));
+	//	player[i].number = i;
+	//}
+	//FILE* fp;
+	//fp = fopen("ball.txt", "r");
+	//while (feof(fp) == 0) //使用临时结构接收所有文件读取字符
+	//{
+	//	fscanf(fp, "%d", &temp.number);
+	//	fscanf(fp, "%s", temp.fname);
+	//	fscanf(fp, "%s", temp.lname);
+	//	fscanf(fp, "%d", &temp.onstage);
+	//	fscanf(fp, "%d", &temp.hit);
+	//	fscanf(fp, "%d", &temp.basse_on_ball);
+	//	fscanf(fp, "%d", &temp.RBI);
+	//	for (int i = 0; i < 19; i++) //将读取字符添加到对应结构数组中
+	//	{
+	//		if (temp.number == player[i].number)
+	//		{
+	//			strcpy(player[i].fname, temp.fname);
+	//			strcpy(player[i].lname, temp.lname);
+	//			player[i].onstage += temp.onstage;
+	//			player[i].hit += temp.hit;
+	//			player[i].basse_on_ball += temp.basse_on_ball;
+	//			player[i].RBI += temp.RBI;
+	//		}
+	//	}
+	//}
+	//for (int i = 0; i < 19; i++) //计算安打率并打印
+	//{
+	//	if (player[i].onstage != 0)
+	//	{
+	//		player[i].BABIP = (float)player[i].hit / (float)player[i].onstage;
+	//		printf("The player %s %s, number %d, has onstage %d times.\n", player[i].fname, player[i].lname, player[i].number, player[i].onstage);
+	//		printf("Hit %d times, bass on ball %d time, the RBI is %d times and the BABIP is %.2f.\n", player[i].hit, player[i].basse_on_ball, player[i].RBI, player[i].BABIP);
+	//		putchar('\n');
+	//	}
+	//}
+	//fclose(fp);
+
+
+	//7.修改程序清单14.14, 从文件中读取每条记录并显示出来，允许用户删除记录或修改记录的内容。
+	//如果删除记录，把空出来的空间留给下一个要读入的记录。要修改现有的文件内容，必须用"r+b"模式，而不是"a+b"模式。
+	//而且，必须更加注意定位文件指针，防止新加入的记录覆盖现有记录。最简单的方法是改动储存在内存中的所有数据，然后再把最后的信息写入文件。
+	//跟踪的一个方法是在book结构中添加一个成员表示是否该项被删除。
+	//a+b模式打开文件并判断是否能打开 → rewind定位到文件开头 → while循环判断并充文件输入 → 输出 → 判断文件输出是否完全
+	struct book library[MAXBKS];
+	int count = 0;
+	int index, filecount;
+	FILE* pbooks;
+	int size = sizeof(struct book);
+	if ((pbooks = fopen("bool.dat", "w+b")) == NULL)
+	{
+		fprintf(stdout, "Can't open the file.\n");
+		exit(1);
+	}
+	rewind(pbooks);
+	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
+	{
+		if (count == 0)
+		{
+			puts("Current contents of book.dat:");
+		}
+		printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
+		count++;
+	}
+	//删除记录
+	//puts("Please enter the book title that you want to delete.");
+	//char title[MAXAUTL];
+	//s_gets(title, MAXAUTL);
+	//int i;
+	//for (i = 0; i < count; i++) //查找到对应文件
+	//{
+	//	if (strcmp(title, library[i].title) == 0)
+	//	{
+	//		int j;
+	//		for (j = i + 1; j <= count; j++, i++)
+	//		{
+	//			library[i] = library[j];
+	//		}
+	//		break;
+	//	}
+	//}
+	////写入文件
+	//rewind(pbooks);
+	//fwrite(&library[0], size, count, pbooks);
+
+	filecount = count;
+	if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
+	{
+		fprintf("The book.dat file is full.\n", stderr);
+		exit(2);
+	}
+	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
+	puts("Please add new book title.");
+	puts("Press [enter] at the start of a line to stop.");
+	while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
+	{
+		printf("Now enter the author.\n");
+		s_gets(library[count].author, MAXAUTL);
+		puts("Now enter the value.");
+		scanf("%f", &library[count++].value);
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		if (count < MAXBKS)
+		{
+			puts("Enter the next title.");
+		}
+	}
+	if (count > 0) //打印数据
+	{
+		puts("Here is the list of your book:\n");
+		for (int i = 0; i < count; i++)
+		{
+			printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
+		}
+		fwrite(&library[filecount], size, count - filecount, pbooks);
+	}
+	else
+	{
+		puts("No books? Too bad.");
+		puts("Bye!");
+	}
+	fclose(pbooks);
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+void showmenu(struct socail_security_number test)
+{
+	printf("%s %s", test.name.fname, test.name.lname);
+
+	if (test.name.mnamde[0] != '\0')
+	{
+		printf(" %c.", test.name.mnamde[0]);
+	}
+	printf(" - %d\n", test.number);
+}
+
+void showmenu_t(char* a, char* b,  char* c, int d)
+{
+	printf("%s %s", a, b);
+
+	if (c[0] != '\0')
+	{
+		printf(" %c.", c[0]);
+	}
+	printf(" - %d\n", d);
+}
+
+char* s_gets(char* st, int n)
+{
+	char* aim, *find;
+	aim = fgets(st, n, stdin);
+	if (aim)
+	{
+		find = strchr(aim, '\n');
+		if (find)
+		{
+			*find = '\0';
+		}
+		else
+		{
+			while (getchar() != '\n')
+			{
+				continue;
+			}
+		}
+	}
+}
+
+void get_average(struct student *str)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		str->average = (str->grade[0] + str->grade[1] + str->grade[2]) / 3.0;
+		str++;
+	}
+	
+	
+}
+
+void output_information(struct student* str)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		printf("%s %s's average scores is %.2f.\n", str->student_name.fname, str->student_name.lname, str->average);
+		str++;
+	}
+	
+}
+
+float total_average(struct student* str)
+{
+	float sum = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			sum += str->grade[j];
+		}
+		str++;
+	}
+	return sum / 12.0;
+}

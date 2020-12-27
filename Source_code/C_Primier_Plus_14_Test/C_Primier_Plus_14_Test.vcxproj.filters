@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C_Primier_Plus_14_Exercise.c">
+    <ClCompile Include="C_Primier_Plus_14_Test.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -52,6 +52,10 @@ struct gas
 void func_bem(struct bem *);
 float calc_cons(struct gas);
 void calc_conts_t(struct gas *);
+double fun_1(double, double);
+double fun_2(double, double);
+double fun_3(double, double);
+double fun_3(double, double);
 
 
 
@@ -201,7 +205,6 @@ int main()
 
 
 	//10.假设有如下结构：
-	
 	//a.设计一个函数，接受struct gas类型的参数。假设传入的结构包含distance和gals信息。该函数为mpg成员计算正确的值，并把只值返回该结构。
 	// struct gas test;
 	// calc_cons(test);
@@ -211,12 +214,19 @@ int main()
 
 
 
+	//11.声明一个标记为choices的枚举，把枚举常量no、yes和maybe分别设置为0、1、2。
+	//enum chcices{no, yes, maybe};
 
 
-
+	//12.声明一个指向函数的指针，该函数返回指向char的指针，接受一个指向char的指针和一个char类型的值。
+	//char* (*fp)(char*, char);
 	
 	
-
+	//13.声明4个函数，并初始化一个指向这些函数的指针数组。每个函数都接受两个double类型的参数，返回double类型的值。
+	//另外，用两种方法使用该数组调用带10.0和2.5实参的第2个函数。
+	//double (*fp[4])(double, double); //函数指针
+	//fp[1](10.0, 2.5); //函数调用
+	
 
 
 
@@ -266,4 +276,24 @@ void calc_conts_t(struct gas * sp)
 	printf("Please enter the distance and gals.\n");
 	scanf("%f%f", sp->distance, sp->gals);
 	sp->mpg = sp->distance / sp->gals;
+}
+
+double fun_1(double a, double b)
+{
+
+}
+
+double fun_2(double a, double b)
+{
+
+}
+
+double fun_3(double a, double b)
+{
+
+}
+
+double fun_3(double a, double b)
+{
+
 }
