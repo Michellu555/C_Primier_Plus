@@ -353,7 +353,7 @@ int main()
 	int index, filecount;
 	FILE* pbooks;
 	int size = sizeof(struct book);
-	if ((pbooks = fopen("bool.dat", "w+b")) == NULL)
+	if ((pbooks = fopen("bool.dat", "r+b")) == NULL)
 	{
 		fprintf(stdout, "Can't open the file.\n");
 		exit(1);
@@ -369,64 +369,71 @@ int main()
 		count++;
 	}
 	//删除记录
-	//puts("Please enter the book title that you want to delete.");
-	//char title[MAXAUTL];
-	//s_gets(title, MAXAUTL);
-	//int i;
-	//for (i = 0; i < count; i++) //查找到对应文件
+	puts("Please enter the book title that you want to delete.");
+	char title[MAXAUTL];
+	s_gets(title, MAXAUTL);
+	struct book* ptr;
+	ptr = malloc(size * (count - 1));
+	int i;
+	for (i = 0; i < count; i++) //查找到对应文件
+	{
+		if (strcmp(title, library[i].title) == 0)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				*ptr++ = library[j];
+			}
+		}
+		for (int m = i + 1; m < count; m++)
+		{
+			*ptr++ = library[m];
+		}
+	}
+	free(ptr);
+	fclose(pbooks);
+	//写入文件
+	pbooks = fopen("bool.dat", "w+b");
+	rewind(pbooks);
+	fwrite(&ptr, size, count - 1, pbooks);
+
+	//filecount = count;
+	//if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
 	//{
-	//	if (strcmp(title, library[i].title) == 0)
+	//	fprintf("The book.dat file is full.\n", stderr);
+	//	exit(2);
+	//}
+	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
+	//puts("Please add new book title.");
+	//puts("Press [enter] at the start of a line to stop.");
+	//while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
+	//{
+	//	printf("Now enter the author.\n");
+	//	s_gets(library[count].author, MAXAUTL);
+	//	puts("Now enter the value.");
+	//	scanf("%f", &library[count++].value);
+	//	while (getchar() != '\n')
 	//	{
-	//		int j;
-	//		for (j = i + 1; j <= count; j++, i++)
-	//		{
-	//			library[i] = library[j];
-	//		}
-	//		break;
+	//		continue;
+	//	}
+	//	if (count < MAXBKS)
+	//	{
+	//		puts("Enter the next title.");
 	//	}
 	//}
-	////写入文件
-	//rewind(pbooks);
-	//fwrite(&library[0], size, count, pbooks);
-
-	filecount = count;
-	if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
-	{
-		fprintf("The book.dat file is full.\n", stderr);
-		exit(2);
-	}
-	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
-	puts("Please add new book title.");
-	puts("Press [enter] at the start of a line to stop.");
-	while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
-	{
-		printf("Now enter the author.\n");
-		s_gets(library[count].author, MAXAUTL);
-		puts("Now enter the value.");
-		scanf("%f", &library[count++].value);
-		while (getchar() != '\n')
-		{
-			continue;
-		}
-		if (count < MAXBKS)
-		{
-			puts("Enter the next title.");
-		}
-	}
-	if (count > 0) //打印数据
-	{
-		puts("Here is the list of your book:\n");
-		for (int i = 0; i < count; i++)
-		{
-			printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
-		}
-		fwrite(&library[filecount], size, count - filecount, pbooks);
-	}
-	else
-	{
-		puts("No books? Too bad.");
-		puts("Bye!");
-	}
+	//if (count > 0) //打印数据
+	//{
+	//	puts("Here is the list of your book:\n");
+	//	for (int i = 0; i < count; i++)
+	//	{
+	//		printf("%s by %s:$%.2f.\n", library[i].title, library[i].author, library[i].value);
+	//	}
+	//	fwrite(&library[filecount], size, count - filecount, pbooks);
+	//}
+	//else
+	//{
+	//	puts("No books? Too bad.");
+	//	puts("Bye!");
+	//}
 	fclose(pbooks);
 
 
