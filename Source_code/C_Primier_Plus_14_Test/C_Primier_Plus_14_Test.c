@@ -8,6 +8,8 @@
 #define MAXAUTL 31  //作者姓名的最大长度 + 1
 #define MAXBKS 10  //书籍的最大数量
 #define CSIZE 4
+#define BOOKINGNAME 20
+#define SEAT 5
 
 
 
@@ -17,6 +19,10 @@ char* s_gets(char*, int);
 void get_average(struct student*);
 void output_information(struct student*);
 float total_average(struct student*);
+void showmenu_aircraft(void);
+void show_videseat_number(struct aircraft test[]);
+void show_videseat_information(struct aircraft test[]);
+void show_seat_alphlist(struct aircraft test[]);
 
 
 
@@ -45,6 +51,7 @@ struct month
 
 struct book
 {
+	int status;
 	char title[MAXTITL];
 	char author[MAXAUTL];
 	float value;
@@ -73,6 +80,14 @@ struct ball
 	int basse_on_ball; //走垒数
 	int RBI; //打点
 	float BABIP; //安打率
+};
+
+struct aircraft
+{
+	char seat_number[SEAT];
+	int seat_status;
+	char booking_fname[BOOKINGNAME];
+	char booking_lname[BOOKINGNAME];
 };
 
 
@@ -348,65 +363,43 @@ int main()
 	//而且，必须更加注意定位文件指针，防止新加入的记录覆盖现有记录。最简单的方法是改动储存在内存中的所有数据，然后再把最后的信息写入文件。
 	//跟踪的一个方法是在book结构中添加一个成员表示是否该项被删除。
 	//a+b模式打开文件并判断是否能打开 → rewind定位到文件开头 → while循环判断并充文件输入 → 输出 → 判断文件输出是否完全
-	struct book library[MAXBKS];
-	int count = 0;
-	int index, filecount;
-	FILE* pbooks;
-	int size = sizeof(struct book);
-	if ((pbooks = fopen("bool.dat", "r+b")) == NULL)
-	{
-		fprintf(stdout, "Can't open the file.\n");
-		exit(1);
-	}
-	rewind(pbooks);
-	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
-	{
-		if (count == 0)
-		{
-			puts("Current contents of book.dat:");
-		}
-		printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
-		count++;
-	}
-	//删除记录
-	puts("Please enter the book title that you want to delete.");
-	char title[MAXAUTL];
-	s_gets(title, MAXAUTL);
-	struct book* ptr;
-	ptr = malloc(size * (count - 1));
-	int i;
-	for (i = 0; i < count; i++) //查找到对应文件
-	{
-		if (strcmp(title, library[i].title) == 0)
-		{
-			for (int j = 0; j < i; j++)
-			{
-				*ptr++ = library[j];
-			}
-		}
-		for (int m = i + 1; m < count; m++)
-		{
-			*ptr++ = library[m];
-		}
-	}
-	free(ptr);
-	fclose(pbooks);
-	//写入文件
-	pbooks = fopen("bool.dat", "w+b");
-	rewind(pbooks);
-	fwrite(&ptr, size, count - 1, pbooks);
-
+	//struct book library[MAXBKS];
+	//int count = 0;
+	//int index, filecount;
+	//FILE* pbooks;
+	//int size = sizeof(struct book);
+	//if ((pbooks = fopen("bool.dat", "r+b")) == NULL)
+	//{
+	//	fprintf(stdout, "Can't open the file.\n");
+	//	exit(1);
+	//}
+	//rewind(pbooks);
+	//while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
+	//{
+	//	if (count == 0)
+	//	{
+	//		puts("Current contents of book.dat:");
+	//	}
+	//	printf("%s by %s:$%.2f\n", library[count].title, library[count].author, library[count].value);
+	//	count++;
+	//}
 	//filecount = count;
 	//if (count == MAXBKS) //如果文件已经填满就不需要再填充了，直接退出
 	//{
 	//	fprintf("The book.dat file is full.\n", stderr);
 	//	exit(2);
 	//}
-	//提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
+	////提示输入 → while+s_gets判断输入 → 输入作者 → 输入值 → 清理输入行 → 判断是否输入完 → 打印输出 → 写入数据
 	//puts("Please add new book title.");
 	//puts("Press [enter] at the start of a line to stop.");
 	//while (count < MAXBKS && s_gets(library[count].title, MAXTITL) != NULL && library[count].title[0] != '\0')
 	//{
+	//	printf("Now enter the book status.\n");
+	//	scanf("%d", &library[count].status);
+	//	while (getchar() != '\n')
+	//	{
+	//		continue;
+	//	}
 	//	printf("Now enter the author.\n");
 	//	s_gets(library[count].author, MAXAUTL);
 	//	puts("Now enter the value.");
@@ -432,9 +425,90 @@ int main()
 	//else
 	//{
 	//	puts("No books? Too bad.");
-	//	puts("Bye!");
 	//}
-	fclose(pbooks);
+	//删除记录
+	//puts("Please enter the book title that you want to delete(enter key to quit).");
+	//char title_d[MAXAUTL];
+	//while (s_gets(title_d, MAXTITL) != NULL && title_d[0] != '\0')
+	//{
+	//	for (int i = 0; i < count; i++) //查找到对应文件
+	//	{
+	//		if (strcmp(title_d, library[i].title) == 0)
+	//		{
+	//			library[i].status = 0;
+	//		}
+	//	}
+	//	puts("Please enter anoher book title that you want to delete(enter key to quit).");
+	//}
+	//修改记录
+	//puts("Please enter the book title that you want to modifly(enter key to quit).");
+	//char title_m[MAXTITL];
+	//while (s_gets(title_m, MAXTITL) != NULL && title_m[0] != '\0')
+	//{
+	//	for (int i = 0; i < count; i++) //查找到对应文件
+	//	{
+	//		if (strcmp(title_m, library[i].title) == 0)
+	//		{
+	//			puts("Please enter the new book title.");
+	//			s_gets(library[i].title, MAXTITL);
+	//			puts("Please enter the new author.");
+	//			s_gets(library[i].author, MAXTITL);
+	//			puts("Please enter the new value of the book.");
+	//			scanf("%f", &library[i].value);
+	//			while (getchar() != '\n')
+	//			{
+	//				continue;
+	//			}
+	//		}
+	//	}
+	//	puts("Please enter the book title that you want to modifly(enter key to quit).");
+	//}
+	//fclose(pbooks);
+	//写入到文件
+	//pbooks = fopen("bool.dat", "w+b");
+	//rewind(pbooks);
+	//for (int i = 0; i < count; i++)
+	//{
+	//	if (library[i].status == 1)
+	//	{
+	//		fwrite(&library[i], size, 1, pbooks);
+	//	}
+	//}
+	//fclose(pbooks);
+
+
+	//8.巨人航空公司的机群由12个座位的飞机组成。它每天飞行一个航班。根据下面的要求，编写一个座位预订程序。
+	//a.该程序使用一个内含12个结构的数组。每个结构中包括：一个成员表示座位编号、一个成员表示座位是否已被预订、一个成员表示预订人的名、一个成员表示预订人的姓。
+	//b.该程序显示下面的菜单：
+	//To choose a function, enter its letter label :
+	//a) Show number of empty seats
+	//b) Show list of empty seats
+	//c) Show alphabetical list of seats
+	//d) Assign a customer to a seat assignment
+	//e) Delete a seat assignment
+	//f) Quit
+	//c.该程序能成功执行上面给出的菜单。选择d)和e)要提示用户进行额外输入，每个选项都能让用户中止输入。
+	//d.执行特定程序后，该程序再次显示菜单，除非用户选择f。
+	//初始化飞机座位状态
+	struct aircraft plane[12];
+	FILE* fp;
+	fp = fopen("aircraft.txt", "r");
+	rewind(fp);
+	char temp[SEAT];
+	for (int i = 0; i < 12; i++)
+	{
+		fscanf(fp, "%s", temp);
+		strcpy(plane[i].seat_number, temp);
+		plane[i].seat_status = 0;
+		//printf("Seat number:%s\tSeat status:%d\n", plane[i].seat_number, plane[i].seat_status);
+	}
+	fclose(fp);
+	//a）显示空座位数
+	//b）显示空座位清单
+	//c）按字母顺序显示座位列表
+	//d）为客户分配座位
+	//e）删除座位分配
+	//f）退出
 
 
 
@@ -446,8 +520,7 @@ int main()
 
 
 
-
-
+	return 0;
 }
 
 void showmenu(struct socail_security_number test)
@@ -526,4 +599,78 @@ float total_average(struct student* str)
 		str++;
 	}
 	return sum / 12.0;
+}
+
+void showmenu_aircraft(void)
+{
+	puts("\n*********************************************************");
+	puts("To choose a function, enter its letter label :" );
+	puts("a) Show number of empty seats");
+	puts("b) Show list of empty seats");
+	puts("c) Show alphabetical list of seats");
+	puts("d) Assign a customer to a seat assignment");
+	puts("e) Delete a seat assignment");
+	puts("f) Quit");
+	puts("*********************************************************");
+	//待添加选菜功能
+}
+
+void show_videseat_number(struct aircraft test[])
+{
+	int count = 0;
+	for (int i = 0; i < 12; i++)
+	{
+		if (test[i].seat_status == 0)
+		{
+			count++;
+		}
+	}
+	printf("There are %d seat left in this aircraft.\n", count);
+	showmenu_aircraft();
+}
+
+void show_videseat_information(struct aircraft test[])
+{
+	for (int i = 0; i < 12; i++)
+	{
+		if (test[i].seat_status == 0)
+		{
+			printf("%s\t", test[i].seat_number);
+		}
+		else
+		{
+			printf("**\t");
+		}
+		if ((i + 1) % 3 == 0)
+		{
+			putchar('\n');
+		}
+	}
+	showmenu_aircraft();
+}
+
+void show_seat_alphlist(struct aircraft test[])
+{
+	struct aircraft temp;
+	for (int i = 0; i < 11; i++)
+	{
+		for (int j = i + 1; j < 12; j++)
+		{
+			if (strcmp(test[i].seat_number, test[j].seat_number) > 0)
+			{
+				temp = test[i];
+				test[i] = test[j];
+				test[j] = temp;
+			}
+		}
+	}
+	for (int m = 0; m < 12; m++)
+	{
+		printf("%s\t", test[m].seat_number);
+		if ((m + 1) % 3 == 0)
+		{
+			putchar('\n');
+		}
+	}
+	showmenu_aircraft();
 }
