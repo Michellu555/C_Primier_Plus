@@ -23,6 +23,7 @@ void showmenu_aircraft(void);
 void show_videseat_number(struct aircraft test[]);
 void show_videseat_information(struct aircraft test[]);
 void show_seat_alphlist(struct aircraft test[]);
+void seat_booking(struct aircraft test[]);
 
 
 
@@ -89,6 +90,7 @@ struct aircraft
 	char booking_fname[BOOKINGNAME];
 	char booking_lname[BOOKINGNAME];
 };
+
 
 
 
@@ -503,12 +505,9 @@ int main()
 		//printf("Seat number:%s\tSeat status:%d\n", plane[i].seat_number, plane[i].seat_status);
 	}
 	fclose(fp);
-	//a）显示空座位数
-	//b）显示空座位清单
-	//c）按字母顺序显示座位列表
-	//d）为客户分配座位
-	//e）删除座位分配
-	//f）退出
+	seat_booking(plane);
+	show_videseat_number(plane);
+
 
 
 
@@ -671,6 +670,54 @@ void show_seat_alphlist(struct aircraft test[])
 		{
 			putchar('\n');
 		}
+	}
+	showmenu_aircraft();
+}
+
+void seat_booking(struct aircraft test[])
+{
+	puts("The vide seat list is as below:");
+	for (int i = 0; i < 12; i++)
+	{
+		if (test[i].seat_status == 0)
+		{
+			printf("%s\t", test[i].seat_number);
+		}
+		else
+		{
+			printf("**\t");
+		}
+		if ((i + 1) % 3 == 0)
+		{
+			putchar('\n');
+		}
+	}
+	puts("Please enter the seat number that you want(enpty line to quit):");
+	char seat[SEAT];
+	char fname[BOOKINGNAME], lname[BOOKINGNAME];
+	while (s_gets(seat, SEAT) != NULL && seat[0] != '\0')
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			if (strcmp(seat, test[i].seat_number) == 0 && test[i].seat_status != 1)
+			{
+				printf("The seat %s is locked, please enter your first name(enpty line to quit).\n", test[i].seat_number);
+				while (s_gets(fname, BOOKINGNAME) != NULL && fname[0] != '\0' )
+				{
+					strcpy(test[i].booking_fname, fname);
+					puts("please enter your last name(enpty line to quit).");
+					while (s_gets(lname, BOOKINGNAME) != NULL && lname[0] != '\0')
+					{
+						strcpy(test[i].booking_lname, lname);
+						printf("OK, fine. The seat %s is booking by %s %s.\n", test[i].seat_number, test[i].booking_fname, test[i].booking_lname);
+						test[i].seat_status = 1;
+						break;
+					}
+					break;
+				}
+			}
+		}
+		puts("Please enter the seat number that you want(enpty line to quit):");
 	}
 	showmenu_aircraft();
 }
