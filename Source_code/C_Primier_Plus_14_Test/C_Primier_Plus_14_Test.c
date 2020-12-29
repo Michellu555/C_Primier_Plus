@@ -19,11 +19,13 @@ char* s_gets(char*, int);
 void get_average(struct student*);
 void output_information(struct student*);
 float total_average(struct student*);
-void showmenu_aircraft(void);
+void showmenu_aircraft(struct aircraft test[]);
 void show_videseat_number(struct aircraft test[]);
 void show_videseat_information(struct aircraft test[]);
 void show_seat_alphlist(struct aircraft test[]);
 void seat_booking(struct aircraft test[]);
+void delete_bookingseat(struct aircraft test[]);
+void quit(void);
 
 
 
@@ -505,8 +507,7 @@ int main()
 		//printf("Seat number:%s\tSeat status:%d\n", plane[i].seat_number, plane[i].seat_status);
 	}
 	fclose(fp);
-	seat_booking(plane);
-	show_videseat_number(plane);
+	showmenu_aircraft(plane);
 
 
 
@@ -600,9 +601,10 @@ float total_average(struct student* str)
 	return sum / 12.0;
 }
 
-void showmenu_aircraft(void)
+void showmenu_aircraft(struct aircraft test[])
 {
-	puts("\n*********************************************************");
+	char choice;
+	puts("*********************************************************");
 	puts("To choose a function, enter its letter label :" );
 	puts("a) Show number of empty seats");
 	puts("b) Show list of empty seats");
@@ -611,11 +613,41 @@ void showmenu_aircraft(void)
 	puts("e) Delete a seat assignment");
 	puts("f) Quit");
 	puts("*********************************************************");
-	//待添加选菜功能
+	puts("Please choose the function that you want to use.");
+	while ((choice = getchar()) != EOF)
+	{
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		if (strchr("abcdef", choice) != NULL)
+		{
+			switch (choice)
+			{
+			case 'a': show_videseat_number(test);
+				break;
+			case 'b': show_videseat_information(test);
+				break;
+			case 'c': show_seat_alphlist(test);
+				break;
+			case 'd': seat_booking(test);
+				break;
+			case 'e': delete_bookingseat(test);
+				break;
+			case 'f': quit();
+				break;
+			}
+		}
+		else
+		{
+			puts("Please choose function with correct letter label.");
+		}
+	}
 }
 
 void show_videseat_number(struct aircraft test[])
 {
+	system("cls");
 	int count = 0;
 	for (int i = 0; i < 12; i++)
 	{
@@ -625,11 +657,12 @@ void show_videseat_number(struct aircraft test[])
 		}
 	}
 	printf("There are %d seat left in this aircraft.\n", count);
-	showmenu_aircraft();
+	showmenu_aircraft(test);
 }
 
 void show_videseat_information(struct aircraft test[])
 {
+	system("cls");
 	for (int i = 0; i < 12; i++)
 	{
 		if (test[i].seat_status == 0)
@@ -645,11 +678,12 @@ void show_videseat_information(struct aircraft test[])
 			putchar('\n');
 		}
 	}
-	showmenu_aircraft();
+	showmenu_aircraft(test);
 }
 
 void show_seat_alphlist(struct aircraft test[])
 {
+	system("cls");
 	struct aircraft temp;
 	for (int i = 0; i < 11; i++)
 	{
@@ -671,11 +705,12 @@ void show_seat_alphlist(struct aircraft test[])
 			putchar('\n');
 		}
 	}
-	showmenu_aircraft();
+	showmenu_aircraft(test);
 }
 
 void seat_booking(struct aircraft test[])
 {
+	system("cls");
 	puts("The vide seat list is as below:");
 	for (int i = 0; i < 12; i++)
 	{
@@ -692,16 +727,19 @@ void seat_booking(struct aircraft test[])
 			putchar('\n');
 		}
 	}
-	puts("Please enter the seat number that you want(enpty line to quit):");
+	puts("Please enter the seat number that you want(empty line to quit):");
 	char seat[SEAT];
+	int choice = 0;
 	char fname[BOOKINGNAME], lname[BOOKINGNAME];
+	int count = 0;
 	while (s_gets(seat, SEAT) != NULL && seat[0] != '\0')
 	{
 		for (int i = 0; i < 12; i++)
 		{
 			if (strcmp(seat, test[i].seat_number) == 0 && test[i].seat_status != 1)
 			{
-				printf("The seat %s is locked, please enter your first name(enpty line to quit).\n", test[i].seat_number);
+				count++;
+				printf("The seat %s is locked, please enter your first name(empty line to quit).\n", test[i].seat_number);
 				while (s_gets(fname, BOOKINGNAME) != NULL && fname[0] != '\0' )
 				{
 					strcpy(test[i].booking_fname, fname);
@@ -709,15 +747,73 @@ void seat_booking(struct aircraft test[])
 					while (s_gets(lname, BOOKINGNAME) != NULL && lname[0] != '\0')
 					{
 						strcpy(test[i].booking_lname, lname);
-						printf("OK, fine. The seat %s is booking by %s %s.\n", test[i].seat_number, test[i].booking_fname, test[i].booking_lname);
-						test[i].seat_status = 1;
+						puts("Are you sure to book this seat?\nEnter 1 for Yes, 0 for No");
+						scanf("%d", &choice);
+						while (getchar() != '\n')
+						{
+							continue;
+						}
+						if (choice)
+						{
+							printf("OK, fine. The seat %s is booking by %s %s.\n", test[i].seat_number, test[i].booking_fname, test[i].booking_lname);
+							test[i].seat_status = 1;
+						}
 						break;
 					}
 					break;
 				}
 			}
 		}
-		puts("Please enter the seat number that you want(enpty line to quit):");
+		if (!count)
+		{
+			puts("Sorry, can't find this seat or the seat has been booked.\n");
+		}
+		puts("Please enter the seat number that you want(empty line to quit):");
 	}
-	showmenu_aircraft();
+	showmenu_aircraft(test);
+}
+
+void delete_bookingseat(struct aircraft test[])
+{
+	system("cls");
+	char fname[BOOKINGNAME], lname[BOOKINGNAME];
+	int choice;
+	int count = 0;
+	puts("So sorry for that you want to delete your booking seat.");
+	puts("Please enter your first name to delete your booking seat (enpty line to quit).");
+	while (s_gets(fname, BOOKINGNAME) != NULL && fname[0] != '\0')
+	{
+		puts("Please enter your last name.");
+		s_gets(lname, BOOKINGNAME);
+		for (int i = 0; i < 12; i++)
+		{
+			if (strcmp(fname, test[i].booking_fname) == 0 && strcmp(lname, test[i].booking_lname) == 0)
+			{
+				count++;
+				printf("Your seat is %s.\nAre you sure to delete your seat, enter 1 for Yes, 0 for No.\n", test[i].seat_number);
+				scanf("%d", &choice);
+				while (getchar() != '\n')
+				{
+					continue;
+				}
+				if (choice)
+				{
+					test[i].seat_status = 0;
+					printf("Your seat %s has beed deleted.\n", test[i].seat_number);
+				}
+			}
+		}
+		if (!count) //找不到座位
+		{
+			puts("Sorry, can't find your seat.");
+		}
+		puts("Please enter your first name to delete your booking seat (enpty line to quit).");
+	}
+	showmenu_aircraft(test);
+}
+
+void quit(void)
+{
+	puts("Thanks for taking our flight.");
+	exit(0);
 }

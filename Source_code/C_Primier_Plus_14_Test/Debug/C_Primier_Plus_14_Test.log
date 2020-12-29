@@ -1,11 +1,14 @@
 ﻿  C_Primier_Plus_14_Test.c
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(503,9): warning C4013: “strcpy”未定义；假设外部返回 int
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(497,7): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(502,3): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(553,16): warning C4013: “strchr”未定义；假设外部返回 int
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(553,27): warning C4047: “=”:“char *”与“int”的间接级别不同
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(572,71): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(600,19): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(658,14): warning C4013: “strcmp”未定义；假设外部返回 int
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(566): warning C4716: “s_gets”: 必须返回一个值
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(505,9): warning C4013: “strcpy”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(499,7): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(504,3): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(554,16): warning C4013: “strchr”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(554,27): warning C4047: “=”:“char *”与“int”的间接级别不同
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(573,71): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(601,19): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(623,39): warning C4047: “!=”:“int”与“void *”的间接级别不同
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(692,14): warning C4013: “strcmp”未定义；假设外部返回 int
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(751,7): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(794,5): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\C_Primier_Plus_14_Test.c(567): warning C4716: “s_gets”: 必须返回一个值
   C_Primier_Plus_14_Test.vcxproj -> C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_14_Test\Debug\C_Primier_Plus_14_Test.exe
