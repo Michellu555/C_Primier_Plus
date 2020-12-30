@@ -26,7 +26,9 @@ void show_seat_alphlist(struct aircraft test[]);
 void seat_booking(struct aircraft test[]);
 void delete_bookingseat(struct aircraft test[]);
 void quit(void);
-void show_airline(struct ariline test[]);
+void show_airline(struct airline test[]);
+void showmenu_airline(struct aircraft test[]);
+void test_func(struct airline *);
 
 
 
@@ -508,7 +510,6 @@ int main()
 	//c.该程序能成功执行上面给出的菜单。选择d)和e)要提示用户进行额外输入，每个选项都能让用户中止输入。
 	//d.执行特定程序后，该程序再次显示菜单，除非用户选择f。
 	//初始化飞机座位状态
-	//struct aircraft plane[12];
 	//FILE* fp;
 	//fp = fopen("aircraft.txt", "r");
 	//rewind(fp);
@@ -526,10 +527,6 @@ int main()
 	//9.巨人航空公司（编程练习8)需要另一架飞机（容量相同）, 每天飞4班（航班102、311、444和519)。把程序扩展为可以处理4个航班。
 	//用一个顶层菜单提供航班选择和退出。选择一个特定航班，就会出现和编程练习8类似的菜单。但是该菜单要添加一个新选项：确认座位分配。
 	//而且，菜单中的退出是返回顶层菜单。每次显示都要指明当前正在处理的航班号。另外，座位分配显示要指明确认状态。
-	//gaint[0].airline_number = 102;
-	//gaint[1].airline_number = 311;
-	//gaint[2].airline_number = 444;
-	//gaint[3].airline_number = 519;
 	FILE* fp;
 	fp = fopen("aircraft.txt", "r");
 	char temp[SEAT];
@@ -544,10 +541,11 @@ int main()
 		}
 	}
 	fclose(fp);
-	show_airline(gaint);
+	//show_airline(gaint);
 
 
 
+	test_func(gaint);
 
 
 
@@ -853,11 +851,97 @@ void quit(void)
 	exit(0);
 }
 
-void show_airline(struct airline test[4])
+void show_airline(struct airline test[])
 {
+	int choice;
 	puts("Welcome to our flight, we have 4 ariline as below.");
 	for (int i = 0; i < 4; i++)
 	{
-		printf("%d\t", test[i].airline_number);
+		printf("Airline %d\n", test[i].airline_number);
 	}
+	puts("Please choose the airline you want(enter q to quit).");
+	puts("Enter 1 for airline 102, 2 for airline 311, 3 for airline 444 and 4 for airline 519.");
+	while (scanf("%d", &choice))
+	{
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		switch (choice)
+		{
+		case 1: 
+			puts("You have choose airline 102.");
+			showmenu_airline(test[0].plane);
+			break;
+		case 2:
+			puts("You have choose airline 311.");
+			showmenu_airline(test[1].plane);
+			break;
+		case 3:
+			puts("You have choose airline 444.");
+			showmenu_airline(test[2].plane);
+			break;
+		case 4:
+			puts("You have choose airline 102.");
+			showmenu_airline(test[3].plane);
+			break;
+		default:
+			puts("Please enter the correct label.");
+			break;
+		}
+		puts("Please choose the airline you want(empty line to quit).");
+		puts("Enter 1 for airline 102, 2 for airline 311, 3 for airline 444 and 4 for airline 519.");
+	}
+	puts("Thanks for taking our flight.");
+	exit(0);
+
+}
+
+void showmenu_airline(struct aircraft test[])
+{
+	char choice;
+	puts("*********************************************************");
+	puts("To choose a function, enter its letter label :");
+	puts("a) Show number of empty seats");
+	puts("b) Show list of empty seats");
+	puts("c) Show alphabetical list of seats");
+	puts("d) Assign a customer to a seat assignment");
+	puts("e) Delete a seat assignment");
+	puts("f) Back to the main menu");
+	puts("*********************************************************");
+	puts("Please choose the function that you want to use.");
+	while ((choice = getchar()) != EOF)
+	{
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		if (strchr("abcdef", choice) != NULL)
+		{
+			switch (choice)
+			{
+			case 'a': show_videseat_number(test);
+				break;
+			case 'b': show_videseat_information(test);
+				break;
+			case 'c': show_seat_alphlist(test);
+				break;
+			case 'd': seat_booking(test);
+				break;
+			case 'e': delete_bookingseat(test);
+				break;
+			case 'f': show_airline(test);
+				break;
+			}
+		}
+		else
+		{
+			puts("Please choose function with correct letter label.");
+		}
+	}
+}
+
+void test_func(struct airline *st) 
+{
+	printf("%d", st->airline_number);
 }
