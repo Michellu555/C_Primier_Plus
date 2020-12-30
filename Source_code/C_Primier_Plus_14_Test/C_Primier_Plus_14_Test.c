@@ -26,6 +26,7 @@ void show_seat_alphlist(struct aircraft test[]);
 void seat_booking(struct aircraft test[]);
 void delete_bookingseat(struct aircraft test[]);
 void quit(void);
+void show_airline(struct ariline test[]);
 
 
 
@@ -102,6 +103,11 @@ struct airline
 
 
 struct aircraft plane[12];
+struct airline gaint[4] = //航班信息录入
+{
+	{102}, {311}, {444}, {519}
+};
+	
 
 
 
@@ -520,11 +526,10 @@ int main()
 	//9.巨人航空公司（编程练习8)需要另一架飞机（容量相同）, 每天飞4班（航班102、311、444和519)。把程序扩展为可以处理4个航班。
 	//用一个顶层菜单提供航班选择和退出。选择一个特定航班，就会出现和编程练习8类似的菜单。但是该菜单要添加一个新选项：确认座位分配。
 	//而且，菜单中的退出是返回顶层菜单。每次显示都要指明当前正在处理的航班号。另外，座位分配显示要指明确认状态。
-	struct airline gaint[4];
-	gaint[0].airline_number = 102;
-	gaint[1].airline_number = 311;
-	gaint[2].airline_number = 444;
-	gaint[3].airline_number = 519;
+	//gaint[0].airline_number = 102;
+	//gaint[1].airline_number = 311;
+	//gaint[2].airline_number = 444;
+	//gaint[3].airline_number = 519;
 	FILE* fp;
 	fp = fopen("aircraft.txt", "r");
 	char temp[SEAT];
@@ -538,16 +543,8 @@ int main()
 			gaint[j].plane[i].seat_status = 0;
 		}
 	}
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 12; j++)
-		{
-			printf("Airline:%d\tSeat:%s\tSeat status:%d\n", gaint[i].airline_number, gaint[i].plane[j].seat_number, gaint[i].plane[j].seat_status);
-		}
-		putchar('\n\n');
-	}
-	
 	fclose(fp);
+	show_airline(gaint);
 
 
 
@@ -854,4 +851,13 @@ void quit(void)
 {
 	puts("Thanks for taking our flight.");
 	exit(0);
+}
+
+void show_airline(struct airline test[4])
+{
+	puts("Welcome to our flight, we have 4 ariline as below.");
+	for (int i = 0; i < 4; i++)
+	{
+		printf("%d\t", test[i].airline_number);
+	}
 }
