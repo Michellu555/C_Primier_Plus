@@ -28,7 +28,6 @@ void delete_bookingseat(struct aircraft test[]);
 void quit(void);
 void show_airline(struct airline test[]);
 void showmenu_airline(struct aircraft test[]);
-void test_func(struct airline *);
 
 
 
@@ -527,25 +526,24 @@ int main()
 	//9.巨人航空公司（编程练习8)需要另一架飞机（容量相同）, 每天飞4班（航班102、311、444和519)。把程序扩展为可以处理4个航班。
 	//用一个顶层菜单提供航班选择和退出。选择一个特定航班，就会出现和编程练习8类似的菜单。但是该菜单要添加一个新选项：确认座位分配。
 	//而且，菜单中的退出是返回顶层菜单。每次显示都要指明当前正在处理的航班号。另外，座位分配显示要指明确认状态。
-	FILE* fp;
-	fp = fopen("aircraft.txt", "r");
-	char temp[SEAT];
-	for (int j = 0; j < 4; j++)
-	{
-		rewind(fp);
-		for (int i = 0; i < 12; i++)
-		{
-			fscanf(fp, "%s", temp);
-			strcpy(gaint[j].plane[i].seat_number, temp);
-			gaint[j].plane[i].seat_status = 0;
-		}
-	}
-	fclose(fp);
+	//FILE* fp;
+	//fp = fopen("aircraft.txt", "r");
+	//char temp[SEAT];
+	//for (int j = 0; j < 4; j++)
+	//{
+	//	rewind(fp);
+	//	for (int i = 0; i < 12; i++)
+	//	{
+	//		fscanf(fp, "%s", temp);
+	//		strcpy(gaint[j].plane[i].seat_number, temp);
+	//		gaint[j].plane[i].seat_status = 0;
+	//	}
+	//}
+	//fclose(fp);
 	//show_airline(gaint);
 
 
 
-	test_func(gaint);
 
 
 
@@ -939,9 +937,4 @@ void showmenu_airline(struct aircraft test[])
 			puts("Please choose function with correct letter label.");
 		}
 	}
-}
-
-void test_func(struct airline *st) 
-{
-	printf("%d", st->airline_number);
 }
