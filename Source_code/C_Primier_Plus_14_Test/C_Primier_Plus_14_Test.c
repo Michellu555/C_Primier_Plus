@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<stdlib.h>
+#include<math.h>
+#include<time.h>
 
 
 
@@ -28,6 +30,9 @@ void delete_bookingseat(struct aircraft test[]);
 void quit(struct aircraft test[]);
 void show_airline(struct airline test[]);
 void showmenu_airline(struct aircraft test[]);
+void transform(double*, double*, int, double(*fun)(double));
+double test_1(double);
+double test_2(double);
 
 
 
@@ -108,7 +113,8 @@ struct airline gaint[4] = //航班信息录入
 {
 	{102}, {311}, {444}, {519}
 };
-	
+typedef void (*menu)(struct aircraft[]); //自定义变量类型
+menu menu_func[6] = { show_videseat_number, show_videseat_information, show_seat_alphlist, seat_booking, delete_bookingseat, quit };//定义函数指针数组
 
 
 
@@ -542,65 +548,50 @@ int main()
 	//fclose(fp);
 	//show_airline(gaint);
 	
+
 	//10.编写一个程序，通过一个函数指针数组实现菜单。例如，选择菜单中的a,将激活由该数组第1个元素指向的函数。
-	void (*menu)(struct aircraft[])[6];
-	FILE* fp;
-	fp = fopen("aircraft.txt", "r");
-	rewind(fp);
-	char temp[SEAT];
-	for (int i = 0; i < 12; i++)
-	{
-		fscanf(fp, "%s", temp);
-		strcpy(plane[i].seat_number, temp);
-		plane[i].seat_status = 0;
-	}
-	fclose(fp);
-	menu[0] = &show_videseat_number;
-	menu[1] = &show_videseat_information;
-	menu[2] = &show_seat_alphlist;
-	menu[3] = &seat_booking;
-	menu[4] = delete_bookingseat;
-	menu[5] = quit;
-	char choice;
-	puts("*********************************************************");
-	puts("To choose a function, enter its letter label :" );
-	puts("a) Show number of empty seats");
-	puts("b) Show list of empty seats");
-	puts("c) Show alphabetical list of seats");
-	puts("d) Assign a customer to a seat assignment");
-	puts("e) Delete a seat assignment");
-	puts("f) Quit");
-	puts("*********************************************************");
-	puts("Please choose the function that you want to use.");
-	while ((choice = getchar()) != EOF)
-	{
-		while (getchar() != '\n')
-		{
-			continue;
-		}
-		if (strchr("abcdef", choice) != NULL)
-		{
-			switch (choice)
-			{
-			case 'a': (*menu[0])(plane);
-				break;
-			case 'b': (*menu[1])(plane);
-				break;
-			case 'c': (*menu[2])(plane);
-				break;
-			case 'd': (*menu[3])(plane);
-				break;
-			case 'e': (*menu[4])(plane);
-				break;
-			case 'f': (*menu[5])(plane);
-				break;
-			}
-		}
-		else
-		{
-			puts("Please choose function with correct letter label.");
-		}
-	}
+	//FILE* fp;
+	//fp = fopen("aircraft.txt", "r");
+	//rewind(fp);
+	//char temp[SEAT];
+	//for (int i = 0; i < 12; i++)
+	//{
+	//	fscanf(fp, "%s", temp);
+	//	strcpy(plane[i].seat_number, temp);
+	//	plane[i].seat_status = 0;
+	//}
+	//fclose(fp);
+	//showmenu_airline(plane);
+
+
+	//11.编写一个名为transform()的函数，接受4个参数：内含double类型数据的源数组名、内含double类型数据的目标数组名、
+	//一个表示数组元素个数的int类型参数、函数名（或等价的函数指针）。transform()函数应把指定函数
+	//应用于源数组中的每个元素，并把返回值储存在目标数组中。例如：transform(source, target, 100, sin);
+	//该声明会把target[0]设置为sin(source[0]), 等等，共有100个元素。在一个程序中调用transform()4次，以测试该函数。
+	//分别使用math.h函数库中的两个函数以及自定义的两个函数作为参数。
+	//int len = 100;
+	//double* source, * target;
+	//source = (double*)malloc(sizeof(double) * len);
+	//target = (double*)malloc(sizeof(double) * len);
+	//srand(time(0));
+	//for (int i = 0; i < len; i++)
+	//{
+	//	source[i] = rand() % 100 + 1;
+	//}
+	//transform(source, target, len, sin);
+	//transform(source, target, len, sqrt);
+	//transform(source, target, len, test_1);
+	//transform(source, target, len, test_2);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -746,7 +737,8 @@ void show_videseat_number(struct aircraft test[])
 		}
 	}
 	printf("There are %d seat left in this aircraft.\n", count);
-	showmenu_aircraft(test);
+	//showmenu_aircraft(test); //第九题使用
+	showmenu_airline(test); //第十题使用
 }
 
 void show_videseat_information(struct aircraft test[])
@@ -767,7 +759,8 @@ void show_videseat_information(struct aircraft test[])
 			putchar('\n');
 		}
 	}
-	showmenu_aircraft(test);
+	//showmenu_aircraft(test); //第九题使用
+	showmenu_airline(test); //第十题使用
 }
 
 void show_seat_alphlist(struct aircraft test[])
@@ -794,7 +787,8 @@ void show_seat_alphlist(struct aircraft test[])
 			putchar('\n');
 		}
 	}
-	showmenu_aircraft(test);
+	//showmenu_aircraft(test); //第九题使用
+	showmenu_airline(test); //第十题使用
 }
 
 void seat_booking(struct aircraft test[])
@@ -859,7 +853,8 @@ void seat_booking(struct aircraft test[])
 		}
 		puts("Please enter the seat number that you want(empty line to quit):");
 	}
-	showmenu_aircraft(test);
+	//showmenu_aircraft(test); //第九题使用
+	showmenu_airline(test); //第十题使用
 }
 
 void delete_bookingseat(struct aircraft test[])
@@ -898,7 +893,8 @@ void delete_bookingseat(struct aircraft test[])
 		}
 		puts("Please enter your first name to delete your booking seat (enpty line to quit).");
 	}
-	showmenu_aircraft(test);
+	//showmenu_aircraft(test); //第九题使用
+	showmenu_airline(test); //第十题使用
 }
 
 void quit(struct aircraft test[])
@@ -907,7 +903,7 @@ void quit(struct aircraft test[])
 	exit(0);
 }
 
-void show_airline(struct airline test[])
+void show_airline(struct airline test[]) 
 {
 	int choice;
 	puts("Welcome to our flight, we have 4 ariline as below.");
@@ -963,7 +959,7 @@ void showmenu_airline(struct aircraft test[])
 	puts("c) Show alphabetical list of seats");
 	puts("d) Assign a customer to a seat assignment");
 	puts("e) Delete a seat assignment");
-	puts("f) Back to the main menu");
+	puts("f) Quit");
 	puts("*********************************************************");
 	puts("Please choose the function that you want to use.");
 	while ((choice = getchar()) != EOF)
@@ -976,17 +972,17 @@ void showmenu_airline(struct aircraft test[])
 		{
 			switch (choice)
 			{
-			case 'a': show_videseat_number(test);
+			case 'a': menu_func[0](plane);
 				break;
-			case 'b': show_videseat_information(test);
+			case 'b': menu_func[1](plane);
 				break;
-			case 'c': show_seat_alphlist(test);
+			case 'c': menu_func[2](plane);
 				break;
-			case 'd': seat_booking(test);
+			case 'd': menu_func[3](plane);
 				break;
-			case 'e': delete_bookingseat(test);
+			case 'e': menu_func[4](plane);
 				break;
-			case 'f': show_airline(test);
+			case 'f': menu_func[5](plane);
 				break;
 			}
 		}
@@ -995,4 +991,27 @@ void showmenu_airline(struct aircraft test[])
 			puts("Please choose function with correct letter label.");
 		}
 	}
+}
+
+void transform(double* a, double* b, int c, double(*d)(double))
+{
+	for (int i = 0; i < c; i++)
+	{
+		b[i] = d(a[i]);
+		printf("%.2lf\t", b[i]);
+		if ((i + 1) % 10 == 0)
+		{
+			putchar('\n');
+		}
+	}
+}
+
+double test_1(double a)
+{
+	return a * a;
+}
+
+double test_2(double b)
+{
+	return b / 2;
 }
