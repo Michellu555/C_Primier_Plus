@@ -25,7 +25,7 @@ void show_videseat_information(struct aircraft test[]);
 void show_seat_alphlist(struct aircraft test[]);
 void seat_booking(struct aircraft test[]);
 void delete_bookingseat(struct aircraft test[]);
-void quit(void);
+void quit(struct aircraft test[]);
 void show_airline(struct airline test[]);
 void showmenu_airline(struct aircraft test[]);
 
@@ -541,8 +541,66 @@ int main()
 	//}
 	//fclose(fp);
 	//show_airline(gaint);
-
-
+	
+	//10.编写一个程序，通过一个函数指针数组实现菜单。例如，选择菜单中的a,将激活由该数组第1个元素指向的函数。
+	void (*menu)(struct aircraft[])[6];
+	FILE* fp;
+	fp = fopen("aircraft.txt", "r");
+	rewind(fp);
+	char temp[SEAT];
+	for (int i = 0; i < 12; i++)
+	{
+		fscanf(fp, "%s", temp);
+		strcpy(plane[i].seat_number, temp);
+		plane[i].seat_status = 0;
+	}
+	fclose(fp);
+	menu[0] = &show_videseat_number;
+	menu[1] = &show_videseat_information;
+	menu[2] = &show_seat_alphlist;
+	menu[3] = &seat_booking;
+	menu[4] = delete_bookingseat;
+	menu[5] = quit;
+	char choice;
+	puts("*********************************************************");
+	puts("To choose a function, enter its letter label :" );
+	puts("a) Show number of empty seats");
+	puts("b) Show list of empty seats");
+	puts("c) Show alphabetical list of seats");
+	puts("d) Assign a customer to a seat assignment");
+	puts("e) Delete a seat assignment");
+	puts("f) Quit");
+	puts("*********************************************************");
+	puts("Please choose the function that you want to use.");
+	while ((choice = getchar()) != EOF)
+	{
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+		if (strchr("abcdef", choice) != NULL)
+		{
+			switch (choice)
+			{
+			case 'a': (*menu[0])(plane);
+				break;
+			case 'b': (*menu[1])(plane);
+				break;
+			case 'c': (*menu[2])(plane);
+				break;
+			case 'd': (*menu[3])(plane);
+				break;
+			case 'e': (*menu[4])(plane);
+				break;
+			case 'f': (*menu[5])(plane);
+				break;
+			}
+		}
+		else
+		{
+			puts("Please choose function with correct letter label.");
+		}
+	}
 
 
 
@@ -665,7 +723,7 @@ void showmenu_aircraft(struct aircraft test[])
 				break;
 			case 'e': delete_bookingseat(test);
 				break;
-			case 'f': quit();
+			case 'f': quit(test);
 				break;
 			}
 		}
@@ -843,7 +901,7 @@ void delete_bookingseat(struct aircraft test[])
 	showmenu_aircraft(test);
 }
 
-void quit(void)
+void quit(struct aircraft test[])
 {
 	puts("Thanks for taking our flight.");
 	exit(0);
