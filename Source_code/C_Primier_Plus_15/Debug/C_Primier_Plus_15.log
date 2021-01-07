@@ -1,3 +1,3 @@
 ﻿  C_Perimier_Plus_15.c
-C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_15\C_Perimier_Plus_15.c(35,9): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_15\C_Perimier_Plus_15.c(113,7): warning C4101: “bin_str”: 未引用的局部变量
   C_Primier_Plus_15.vcxproj -> C:\Learn\Code\C\C_Primier_Plus\Source_code\C_Primier_Plus_15\Debug\C_Primier_Plus_15.exe
