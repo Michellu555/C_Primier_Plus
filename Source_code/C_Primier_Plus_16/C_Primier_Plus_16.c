@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<math.h>
+#include"names_st.h"
 
 
 #define TWO 2
@@ -72,6 +73,17 @@ int main()
 	//y = sqrt(x);
 	//PR(1, "x = %g\n", x);
 	//PR(2, "x = %.2f, y = %.4f\n", x, y);
+
+
+	//程序清单16.8
+	//useheader.c -- 使用names_st结构
+	//names candidate;
+	//get_names(&candidate);
+	//printf("Let's welcome ");
+	//show_names(&candidate);
+	//puts(" to this program!");
+
+
 
 
 
