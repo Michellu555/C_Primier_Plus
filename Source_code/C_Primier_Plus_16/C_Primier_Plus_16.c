@@ -15,6 +15,8 @@ tive.-Oscar Wilde"
 #define XNAME(n) x##n
 #define PRINT_XN(n) printf("x" #n "= %d\n", x##n) //##把记号组成一个新的标识符
 #define PR(X, ...) printf("Message" #X ":"__VA_ARGS__) //"Message ”#X ":"对应X
+#define JUST_CHECKING
+#define LIMIT 4
 
 
 int main()
@@ -82,6 +84,19 @@ int main()
 	//printf("Let's welcome ");
 	//show_names(&candidate);
 	//puts(" to this program!");
+
+
+	//程序清单16.9
+	//ifdef.c -- 使用条件编译
+//	int total = 0;
+//	for (int i = 1; i <= LIMIT; i++)
+//	{
+//		total += 2 * i * i + 1;
+//#ifdef JUST_CHECKING
+//		printf("i = %d, running total = %d\n", i, total);
+//#endif // JUST_CHECKING
+//	}
+//	printf("Grand total = %d\n", total);
 
 
 
